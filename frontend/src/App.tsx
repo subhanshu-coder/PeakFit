@@ -37,7 +37,7 @@ export default function App() {
             </RequireAuth>
           }
         />
-        <Route
+        <Route // user must be authenticated to access the Exercises page
           path="/exercises"
           element={
             <RequireAuth>
