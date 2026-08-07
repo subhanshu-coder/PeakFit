@@ -29,7 +29,7 @@ export default function App() {
             </RequireAuth>
           }
         />
-        <Route
+        <Route  // user must be authenticated to access the SplitBuilder page
           path="/split-builder"
           element={
             <RequireAuth>
