@@ -24,7 +24,7 @@ export default function App() {
         <Route
           path="/dashboard"
           element={
-            <RequireAuth>
+            <RequireAuth> //this component will check if the user is authenticated before rendering the Dashboard component. If the user is not authenticated, it will redirect them to the login page.
               <Dashboard />
             </RequireAuth>
           }
