@@ -32,5 +32,5 @@ app.use((err, _req, res, _next) => {
 })
 
 app.listen(PORT, () => {
-  console.log(`FitForge API running on http://localhost:${PORT}`)
+  console.log(`PeakFit API running on http://localhost:${PORT}`)
 })
