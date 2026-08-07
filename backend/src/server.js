@@ -18,7 +18,21 @@ app.use(cors())
 app.use(express.json())
 app.use(morgan('dev'))
 
-app.get('/api/health', (_req, res) => res.json({ ok: true, service: 'fitforge-api' }))
+// ✅ Root route
+app.get('/', (_req, res) => {
+  res.json({
+    success: true,
+    message: 'Welcome to PeakFit API 🚀'
+  })
+})
+
+// Health check
+app.get('/api/health', (_req, res) =>
+  res.json({
+    ok: true,
+    service: 'peakfit-api'
+  })
+)
 
 app.use('/api/auth', authRoutes)
 app.use('/api/exercises', exerciseRoutes)
