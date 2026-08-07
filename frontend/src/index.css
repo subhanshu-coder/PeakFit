@@ -1,15 +1,22 @@
+/* stylelint-disable at-rule-no-unknown */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+/* stylelint-enable at-rule-no-unknown */
 
 @layer base {
   html {
     scroll-behavior: smooth;
   }
-  body {
+   body {
+    /* stylelint-disable-next-line at-rule-no-unknown */
     @apply bg-ink text-bone font-body antialiased;
   }
-  h1, h2, h3, h4, .font-display {
+
+  h1,
+  h2,
+  h3,
+  h4 {
     @apply font-display;
   }
   ::selection {
