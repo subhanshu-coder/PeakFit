@@ -3,8 +3,11 @@ import react from '@vitejs/plugin-react'
 import { defineConfig } from 'vite'
 
 export default defineConfig({
+  base: '/PeakFit/',
   plugins: [react()],
-  server: { port: 3000 },
+  server: {
+    port: 3000,
+  },
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),
