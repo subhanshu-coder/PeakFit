@@ -1,14 +1,14 @@
-/// <reference types="vite/client" />
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { BrowserRouter } from 'react-router-dom'
-import App from './App.tsx'
-import './index.css' // Import the Tailwind CSS file
+import App from './App'
+// @ts-ignore: allow side-effect CSS import when no type declarations are present
+import './index.css'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <BrowserRouter>
+    <BrowserRouter basename="/PeakFit">
       <App />
     </BrowserRouter>
-  </StrictMode>
+  </StrictMode>,
 )
