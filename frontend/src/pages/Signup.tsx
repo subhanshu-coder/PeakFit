@@ -15,6 +15,7 @@ export default function Signup() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState<string | null>(null)
+  const [notice, setNotice] = useState<string | null>(null)
   const [loading, setLoading] = useState(false)
 
   async function onSubmit(e: FormEvent) {
@@ -23,8 +24,12 @@ export default function Signup() {
     setLoading(true)
     try {
       const { data } = await api.post('/auth/register', { name, email, password })
-      setSession(data.token, data.user)
-      navigate('/dashboard')
+      if (data.token && data.refreshToken && data.user) {
+        setSession(data.token, data.user, data.refreshToken)
+        navigate('/dashboard')
+      } else {
+        setNotice('Check your email to confirm your account, then log in to start training.')
+      }
     } catch (err: any) {
       setError(err?.response?.data?.error || 'Something went wrong')
     } finally {
@@ -53,10 +58,11 @@ export default function Signup() {
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              minLength={6}
+              minLength={8}
               required
             />
             {error && <p className="text-sm text-red-400">{error}</p>}
+            {notice && <p role="status" className="text-sm text-volt">{notice}</p>}
             <Button type="submit" disabled={loading} className="mt-2 w-full">
               {loading ? 'Creating account…' : 'Create Account'}
             </Button>
@@ -73,3 +79,4 @@ export default function Signup() {
     </div>
   )
 }
+

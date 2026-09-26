@@ -1,89 +1,112 @@
 import { Router } from 'express'
-import { nanoid } from 'nanoid'
-import { db } from '../db.js'
-import { requireAuth } from '../middleware/auth.js'
 import { EXERCISES } from '../data/exercises.js'
 import { SPLIT_TEMPLATES, DAY_ORDER } from '../data/splitTemplates.js'
+import { asyncHandler } from '../middleware/asyncHandler.js'
+import { requireAuth } from '../middleware/auth.js'
 
 const router = Router()
 router.use(requireAuth)
 
 function exercisesFor(muscles, perMuscle = 2) {
-  const picked = []
-  for (const muscle of muscles) {
-    const pool = EXERCISES.filter((e) => e.muscle === muscle)
-    picked.push(...pool.slice(0, perMuscle))
+  return muscles.flatMap((muscle) => EXERCISES.filter((exercise) => exercise.muscle === muscle).slice(0, perMuscle))
+}
+
+function fromRow(row) {
+  return {
+    id: row.id,
+    userId: row.user_id,
+    splitType: row.split_type,
+    label: row.label,
+    days: row.days,
+    createdAt: row.created_at,
   }
-  return picked
 }
 
 router.get('/templates', (_req, res) => {
-  const templates = Object.entries(SPLIT_TEMPLATES).map(([key, t]) => ({
+  const templates = Object.entries(SPLIT_TEMPLATES).map(([key, template]) => ({
     key,
-    label: t.label,
-    description: t.description,
+    label: template.label,
+    description: template.description,
   }))
   res.json({ templates })
 })
 
-router.get('/', (req, res) => {
-  const plan = db.find(
-    'plans',
-    (p) => p.userId === req.userId && p.id === db.filter('plans', (x) => x.userId === req.userId).at(-1)?.id
-  )
-  if (!plan) return res.status(404).json({ error: 'No plan yet — generate one first' })
-  res.json({ plan })
-})
+router.get('/', asyncHandler(async (req, res) => {
+  const { data, error } = await req.supabase
+    .from('workout_plans')
+    .select('id,user_id,split_type,label,days,created_at')
+    .eq('user_id', req.userId)
+    .order('created_at', { ascending: false })
+    .limit(1)
+    .maybeSingle()
+  if (error) throw error
+  if (!data) return res.status(404).json({ error: 'No plan yet — generate one first' })
+  res.json({ plan: fromRow(data) })
+}))
 
-router.post('/generate', (req, res) => {
+router.post('/generate', asyncHandler(async (req, res) => {
   const { splitType = 'ppl_2x' } = req.body ?? {}
   const template = SPLIT_TEMPLATES[splitType]
   if (!template) return res.status(400).json({ error: 'Unknown splitType' })
 
   const days = DAY_ORDER.map((day) => {
-    const dayDef = template.days[day]
+    const definition = template.days[day]
     return {
       day,
-      label: dayDef.label,
-      muscles: dayDef.muscles,
-      exercises: exercisesFor(dayDef.muscles),
+      label: definition.label,
+      muscles: definition.muscles,
+      exercises: exercisesFor(definition.muscles),
     }
   })
+  const { data, error } = await req.supabase
+    .from('workout_plans')
+    .insert({ user_id: req.userId, split_type: splitType, label: template.label, days })
+    .select('id,user_id,split_type,label,days,created_at')
+    .single()
+  if (error) throw error
+  res.status(201).json({ plan: fromRow(data) })
+}))
 
-  const plan = {
-    id: nanoid(),
-    userId: req.userId,
-    splitType,
-    label: template.label,
-    days,
-    createdAt: new Date().toISOString(),
-  }
-  db.insert('plans', plan)
-  res.status(201).json({ plan })
-})
-
-// Customize a single day: override its muscle list and/or exercises
-router.patch('/:planId/day/:day', (req, res) => {
+router.patch('/:planId/day/:day', asyncHandler(async (req, res) => {
   const { planId, day } = req.params
   const { muscles, exerciseIds } = req.body ?? {}
+  if (muscles !== undefined && (!Array.isArray(muscles) || muscles.some((muscle) => typeof muscle !== 'string'))) {
+    return res.status(400).json({ error: 'muscles must be an array of muscle names' })
+  }
+  if (exerciseIds !== undefined && (!Array.isArray(exerciseIds) || exerciseIds.some((id) => !Number.isInteger(id)))) {
+    return res.status(400).json({ error: 'exerciseIds must be an array of exercise IDs' })
+  }
 
-  const plans = db.get('plans')
-  const plan = plans.find((p) => p.id === planId && p.userId === req.userId)
-  if (!plan) return res.status(404).json({ error: 'Plan not found' })
+  const { data: row, error: readError } = await req.supabase
+    .from('workout_plans')
+    .select('id,user_id,split_type,label,days,created_at')
+    .eq('id', planId)
+    .eq('user_id', req.userId)
+    .maybeSingle()
+  if (readError) throw readError
+  if (!row) return res.status(404).json({ error: 'Plan not found' })
 
-  const dayEntry = plan.days.find((d) => d.day === day)
+  const plan = fromRow(row)
+  const dayEntry = plan.days.find((entry) => entry.day === day)
   if (!dayEntry) return res.status(404).json({ error: 'Day not found in plan' })
-
   if (Array.isArray(muscles)) {
     dayEntry.muscles = muscles
     dayEntry.exercises = exercisesFor(muscles)
   }
   if (Array.isArray(exerciseIds)) {
-    dayEntry.exercises = EXERCISES.filter((e) => exerciseIds.includes(e.id))
+    dayEntry.exercises = EXERCISES.filter((exercise) => exerciseIds.includes(exercise.id))
   }
 
-  db.update('plans', plan.id, { days: plan.days })
-  res.json({ plan })
-})
+  const { data: updated, error } = await req.supabase
+    .from('workout_plans')
+    .update({ days: plan.days })
+    .eq('id', planId)
+    .eq('user_id', req.userId)
+    .select('id,user_id,split_type,label,days,created_at')
+    .single()
+  if (error) throw error
+  res.json({ plan: fromRow(updated) })
+}))
 
 export default router
+

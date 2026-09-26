@@ -1,16 +1,25 @@
-import jwt from 'jsonwebtoken'
+import { createUserClient } from '../lib/supabase.js'
 
-export function requireAuth(req, res, next) {
+export async function requireAuth(req, res, next) {
   const header = req.headers.authorization
   if (!header || !header.startsWith('Bearer ')) {
-    return res.status(401).json({ error: 'Missing or malformed Authorization header' })
+    return res.status(401).json({ error: 'A valid Supabase access token is required' })
   }
-  const token = header.slice('Bearer '.length)
+
+  const accessToken = header.slice('Bearer '.length).trim()
+  if (!accessToken) return res.status(401).json({ error: 'A valid Supabase access token is required' })
+
   try {
-    const payload = jwt.verify(token, process.env.JWT_SECRET || 'dev-secret')
-    req.userId = payload.sub
+    const supabase = createUserClient(accessToken)
+    const { data, error } = await supabase.auth.getUser(accessToken)
+    if (error || !data.user) return res.status(401).json({ error: 'Invalid or expired session' })
+
+    req.userId = data.user.id
+    req.authUser = data.user
+    req.supabase = supabase
     next()
-  } catch {
-    return res.status(401).json({ error: 'Invalid or expired token' })
+  } catch (error) {
+    next(error)
   }
 }
+
