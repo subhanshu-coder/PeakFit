@@ -18,6 +18,11 @@ PeakFit is a full-stack strength training tracker with workout split planning, e
 
 The API accepts Supabase access tokens, verifies them with Supabase Auth, and uses a request-scoped client so database queries run with the signed-in user's JWT. The database policies independently enforce row ownership. Access tokens refresh through Supabase Auth when the API returns an expired-session response.
 
+## Production hosting
+
+- **Vercel:** import this repository as a new Vercel project with the repository root as the project root. `vercel.json` builds the frontend and routes the Express API through Vercel Functions. Add `SUPABASE_URL`, `SUPABASE_PUBLISHABLE_KEY`, and `FRONTEND_URL` as Production environment variables. Keep the Vercel frontend and API on the same origin.
+- **GitHub Pages:** the Actions workflow builds and publishes the frontend at `https://subhanshu-coder.github.io/PeakFit/`. It uses the Vercel API at `https://peakfit.vercel.app/api`; if Vercel assigns a different domain, update `VITE_API_URL` in `.github/workflows/pages.yml` before publishing.
+
 ## Features
 
 - Email/password signup and login through Supabase Auth

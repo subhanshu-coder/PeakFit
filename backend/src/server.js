@@ -57,7 +57,11 @@ app.use((err, _req, res, _next) => {
 })
 
 assertSupabaseConfig()
-app.listen(PORT, () => {
-  console.log(`PeakFit API running on http://localhost:${PORT}`)
-})
+if (process.env.VERCEL !== '1') {
+  app.listen(PORT, () => {
+    console.log(`PeakFit API running on http://localhost:${PORT}`)
+  })
+}
+
+export default app
 
