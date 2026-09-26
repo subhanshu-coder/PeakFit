@@ -13,7 +13,7 @@ export default function GoogleSignInButton({ onError }: GoogleSignInButtonProps)
     setLoading(true)
     onError('')
     try {
-      const callback = new URL(`${import.meta.env.BASE_URL}auth/callback`, window.location.origin)
+      const callback = new URL(import.meta.env.BASE_URL, window.location.origin)
       const { error } = await supabase.auth.signInWithOAuth({
         provider: 'google',
         options: { redirectTo: callback.toString() },

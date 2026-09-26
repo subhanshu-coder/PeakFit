@@ -14,15 +14,17 @@ import Progress from '@/pages/Progress'
 import AuthCallback from '@/pages/AuthCallback'
 
 export default function App() {
+  const params = new URLSearchParams(window.location.search)
+  const isOAuthCallback = params.has('code') || params.has('error') || params.has('error_description')
+
   return (
     <div className="min-h-screen bg-ink text-bone">
       <CustomCursor />
       <Navbar />
       <Routes>
-        <Route path="/" element={<Landing />} />
+        <Route path="/" element={isOAuthCallback ? <AuthCallback /> : <Landing />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
-        <Route path="/auth/callback" element={<AuthCallback />} />
         <Route
           path="/dashboard"
           element={
