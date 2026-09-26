@@ -1,15 +1,12 @@
 {
-  "installCommand": "npm install --prefix backend && npm install --prefix frontend",
-  "buildCommand": "npm run build --prefix frontend",
-  "outputDirectory": "frontend/dist",
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "services": {
+    "frontend": { "root": "frontend/", "framework": "vite" },
+    "backend": { "root": "backend/" }
+  },
   "rewrites": [
-    { "source": "/login", "destination": "/index.html" },
-    { "source": "/signup", "destination": "/index.html" },
-    { "source": "/dashboard", "destination": "/index.html" },
-    { "source": "/split-builder", "destination": "/index.html" },
-    { "source": "/exercises", "destination": "/index.html" },
-    { "source": "/diet", "destination": "/index.html" },
-    { "source": "/progress", "destination": "/index.html" }
+    { "source": "/api(/.*)?", "destination": { "type": "service", "service": "backend" } },
+    { "source": "/(.*)", "destination": { "type": "service", "service": "frontend" } }
   ]
 }
 
