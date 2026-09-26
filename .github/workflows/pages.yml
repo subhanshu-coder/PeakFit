@@ -32,7 +32,7 @@ jobs:
         working-directory: frontend
         env:
           GITHUB_PAGES: 'true'
-          VITE_API_URL: https://peak-fit.vercel.app/api
+          VITE_API_URL: https://peak-fit-nu.vercel.app/api
       - uses: actions/upload-pages-artifact@v3
         with:
           path: frontend/dist
@@ -46,4 +46,3 @@ jobs:
     steps:
       - id: deployment
         uses: actions/deploy-pages@v4
-

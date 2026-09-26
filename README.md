@@ -20,8 +20,8 @@ The API accepts Supabase access tokens, verifies them with Supabase Auth, and us
 
 ## Production hosting
 
-- **Vercel:** import this repository as a new Vercel project from the repository root. `vercel.json` routes `/api/*` to the Express backend service and other paths to the Vite frontend service. Add `SUPABASE_URL`, `SUPABASE_PUBLISHABLE_KEY`, and `FRONTEND_URL` as Production environment variables. Both services use the same origin.
-- **GitHub Pages:** the Actions workflow builds and publishes the frontend at `https://subhanshu-coder.github.io/PeakFit/`. It uses the Vercel API at `https://peak-fit.vercel.app/api`; if Vercel assigns a different domain, update `VITE_API_URL` in `.github/workflows/pages.yml` before publishing.
+- **Vercel:** import this repository as a new Vercel project from the repository root. `vercel.json` builds the Vite app as a static site and serves the Express API as a serverless function. Add `SUPABASE_URL`, `SUPABASE_PUBLISHABLE_KEY`, and `FRONTEND_URL` as Production environment variables.
+- **GitHub Pages:** the Actions workflow builds and publishes the frontend at `https://subhanshu-coder.github.io/PeakFit/`. It uses the Vercel API at `https://peak-fit-nu.vercel.app/api`; update `VITE_API_URL` in `.github/workflows/pages.yml` if Vercel assigns a different production domain.
 
 ## Features
 
@@ -35,4 +35,3 @@ The API accepts Supabase access tokens, verifies them with Supabase Auth, and us
 ## Environment variables
 
 See `backend/.env.example` and `frontend/.env.example`. Keep `.env` files out of version control. The API requires `SUPABASE_URL` and `SUPABASE_PUBLISHABLE_KEY`; it does not need a service-role key.
-
