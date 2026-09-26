@@ -22,7 +22,7 @@ export default function Login() {
     setLoading(true)
     try {
       const { data } = await api.post('/auth/login', { email, password })
-      setSession(data.token, data.user)
+      setSession(data.token, data.user, data.refreshToken)
       navigate('/dashboard')
     } catch (err: any) {
       setError(err?.response?.data?.error || 'Something went wrong')
@@ -70,3 +70,4 @@ export default function Login() {
     </div>
   )
 }
+

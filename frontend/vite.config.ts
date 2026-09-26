@@ -7,7 +7,7 @@ const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 
 export default defineConfig({
-  base: '/PeakFit/',
+  base: process.env.GITHUB_PAGES === 'true' ? '/PeakFit/' : '/',
   plugins: [react()],
   server: {
     port: 3000,
@@ -18,3 +18,4 @@ export default defineConfig({
     },
   },
 })
+
