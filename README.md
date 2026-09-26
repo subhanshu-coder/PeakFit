@@ -11,8 +11,8 @@ PeakFit is a full-stack strength training tracker with workout split planning, e
 ## Local setup
 
 1. Create a Supabase project and enable email/password authentication. The API uses the project's **publishable key**; never put a secret or service-role key in the frontend or API environment.
-2. Apply [`supabase/migrations/20260927000000_peakfit_core.sql`](supabase/migrations/20260927000000_peakfit_core.sql) to the project using the Supabase SQL Editor. This creates the workout plan, diet plan, and workout log tables with per-user RLS policies. If you use the Supabase CLI locally, apply it through your normal migration workflow.
-3. Copy `backend/.env.example` to `backend/.env`. Set `SUPABASE_URL`, `SUPABASE_PUBLISHABLE_KEY`, and the frontend origin(s) in `FRONTEND_URL`.
+2. The migration in [`supabase/migrations/20260927000000_peakfit_core.sql`](supabase/migrations/20260927000000_peakfit_core.sql) has been applied to the PeakFit project. To provision another project, apply it with the Supabase SQL Editor.
+3. Copy `backend/.env.example` to `backend/.env`. The PeakFit project URL and publishable key are already filled in; set the frontend origin(s) in `FRONTEND_URL` for your deployment.
 4. In one terminal, run `cd backend`, `npm install`, and `npm run dev`.
 5. Copy `frontend/.env.example` to `frontend/.env`. In another terminal, run `cd frontend`, `npm install`, and `npm run dev`.
 
