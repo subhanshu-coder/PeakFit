@@ -10,14 +10,22 @@ import dietRoutes from './routes/diet.js'
 import logRoutes from './routes/logs.js'
 
 const app = express()
-const allowedOrigins = (process.env.FRONTEND_URL || 'http://localhost:3000,http://localhost:5173')
+const configuredOrigins = (process.env.FRONTEND_URL || 'http://localhost:3000,http://localhost:5173')
   .split(',')
   .map((origin) => origin.trim())
   .filter(Boolean)
+const vercelOrigins = [
+  process.env.VERCEL_PROJECT_PRODUCTION_URL,
+  process.env.VERCEL_URL,
+  process.env.VERCEL_BRANCH_URL,
+]
+  .filter(Boolean)
+  .map((host) => `https://${host}`)
+const allowedOrigins = new Set([...configuredOrigins, ...vercelOrigins])
 
 app.use(cors({
   origin(origin, callback) {
-    if (!origin || allowedOrigins.includes(origin)) return callback(null, true)
+    if (!origin || allowedOrigins.has(origin)) return callback(null, true)
     return callback(new Error('Origin is not allowed by CORS'))
   },
 }))
@@ -45,3 +53,4 @@ app.use((err, _req, res, _next) => {
 assertSupabaseConfig()
 
 export default app
+
