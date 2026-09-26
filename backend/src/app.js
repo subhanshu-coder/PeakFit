@@ -21,7 +21,8 @@ const vercelOrigins = [
 ]
   .filter(Boolean)
   .map((host) => `https://${host}`)
-const allowedOrigins = new Set([...configuredOrigins, ...vercelOrigins])
+const githubPagesOrigins = ['https://subhanshu-coder.github.io']
+const allowedOrigins = new Set([...configuredOrigins, ...vercelOrigins, ...githubPagesOrigins])
 
 app.use(cors({
   origin(origin, callback) {
@@ -53,4 +54,3 @@ app.use((err, _req, res, _next) => {
 assertSupabaseConfig()
 
 export default app
-
