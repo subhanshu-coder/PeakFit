@@ -6,6 +6,7 @@ import { useAuthStore } from '@/store/auth'
 import { Input } from '@/components/ui/Input'
 import { Button } from '@/components/ui/Button'
 import { Card } from '@/components/ui/Card'
+import GoogleSignInButton from '@/components/GoogleSignInButton'
 
 export default function Signup() {
   const navigate = useNavigate()
@@ -44,6 +45,12 @@ export default function Signup() {
         <p className="mt-2 text-sm text-muted">Set your goal, get a program, start logging.</p>
 
         <Card className="mt-8 p-6">
+          <GoogleSignInButton onError={setError} />
+          <div className="my-5 flex items-center gap-3 text-[10px] font-mono uppercase tracking-widest text-muted">
+            <span className="h-px flex-1 bg-line" />
+            <span>or sign up with email</span>
+            <span className="h-px flex-1 bg-line" />
+          </div>
           <form onSubmit={onSubmit} className="flex flex-col gap-4">
             <Input label="Name" value={name} onChange={(e) => setName(e.target.value)} required />
             <Input
@@ -79,4 +86,3 @@ export default function Signup() {
     </div>
   )
 }
-
