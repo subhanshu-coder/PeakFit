@@ -1,49 +1,75 @@
 import { Router } from 'express'
-import { nanoid } from 'nanoid'
-import { db } from '../db.js'
+import { asyncHandler } from '../middleware/asyncHandler.js'
 import { requireAuth } from '../middleware/auth.js'
 
 const router = Router()
 router.use(requireAuth)
 
-router.post('/', (req, res) => {
+function fromRow(row) {
+  return { id: row.id, userId: row.user_id, day: row.day, entries: row.entries, date: row.performed_at }
+}
+
+function validEntries(entries) {
+  return entries.length > 0 && entries.length <= 30 && entries.every((entry) =>
+    entry !== null && typeof entry === 'object' &&
+    typeof entry.exerciseName === 'string' && entry.exerciseName.trim().length > 0 &&
+    Array.isArray(entry.sets) && entry.sets.length > 0 && entry.sets.length <= 20 &&
+    entry.sets.every((set) => {
+      if (set === null || typeof set !== 'object') return false
+      const reps = Number(set.reps)
+      const weight = Number(set.weight)
+      return Number.isInteger(reps) && reps > 0 && Number.isFinite(weight) && weight >= 0
+    })
+  )
+}
+
+router.post('/', asyncHandler(async (req, res) => {
   const { day, entries } = req.body ?? {}
-  if (!day || !Array.isArray(entries)) {
-    return res.status(400).json({ error: 'day and entries[] are required' })
+  if (typeof day !== 'string' || !day.trim() || day.length > 40 || !Array.isArray(entries) || !validEntries(entries)) {
+    return res.status(400).json({ error: 'Provide a day and valid exercise entries with sets, reps and weight' })
   }
-  const log = {
-    id: nanoid(),
-    userId: req.userId,
-    day,
-    entries, // [{ exerciseId, exerciseName, sets: [{ reps, weight }] }]
-    date: new Date().toISOString(),
-  }
-  db.insert('logs', log)
-  res.status(201).json({ log })
-})
 
-router.get('/', (req, res) => {
-  const logs = db
-    .filter('logs', (l) => l.userId === req.userId)
-    .sort((a, b) => new Date(a.date) - new Date(b.date))
-  res.json({ logs })
-})
+  const { data, error } = await req.supabase
+    .from('workout_logs')
+    .insert({ user_id: req.userId, day: day.trim(), entries })
+    .select('id,user_id,day,entries,performed_at')
+    .single()
+  if (error) throw error
+  res.status(201).json({ log: fromRow(data) })
+}))
 
-// Aggregate: best weight lifted per exercise per day, useful for progress charts
-router.get('/progress/:exerciseName', (req, res) => {
-  const { exerciseName } = req.params
-  const logs = db.filter('logs', (l) => l.userId === req.userId)
+router.get('/', asyncHandler(async (req, res) => {
+  const { data, error } = await req.supabase
+    .from('workout_logs')
+    .select('id,user_id,day,entries,performed_at')
+    .eq('user_id', req.userId)
+    .order('performed_at', { ascending: true })
+  if (error) throw error
+  res.json({ logs: data.map(fromRow) })
+}))
+
+router.get('/progress/:exerciseName', asyncHandler(async (req, res) => {
+  const exerciseName = req.params.exerciseName.trim()
+  if (!exerciseName || exerciseName.length > 100) return res.status(400).json({ error: 'Invalid exercise name' })
+
+  const { data, error } = await req.supabase
+    .from('workout_logs')
+    .select('performed_at,entries')
+    .eq('user_id', req.userId)
+    .order('performed_at', { ascending: true })
+  if (error) throw error
 
   const points = []
-  for (const log of logs) {
-    const entry = log.entries.find(
-      (e) => e.exerciseName.toLowerCase() === exerciseName.toLowerCase()
-    )
-    if (!entry) continue
-    const maxWeight = Math.max(...entry.sets.map((s) => Number(s.weight) || 0))
-    points.push({ date: log.date, maxWeight })
+  for (const log of data) {
+    const entry = log.entries.find((item) => item.exerciseName?.toLowerCase() === exerciseName.toLowerCase())
+    if (!entry?.sets?.length) continue
+    points.push({
+      date: log.performed_at,
+      maxWeight: Math.max(...entry.sets.map((set) => Number(set.weight) || 0)),
+    })
   }
   res.json({ exerciseName, points })
-})
+}))
 
 export default router
+

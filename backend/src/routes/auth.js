@@ -1,68 +1,74 @@
 import { Router } from 'express'
-import bcrypt from 'bcryptjs'
-import jwt from 'jsonwebtoken'
-import { nanoid } from 'nanoid'
-import { db } from '../db.js'
+import { asyncHandler } from '../middleware/asyncHandler.js'
 import { requireAuth } from '../middleware/auth.js'
+import { createPublicClient } from '../lib/supabase.js'
 
 const router = Router()
 
-function sign(userId) {
-  return jwt.sign({ sub: userId }, process.env.JWT_SECRET || 'dev-secret', {
-    expiresIn: '30d',
-  })
-}
-
 function publicUser(user) {
-  const { passwordHash, ...rest } = user
-  return rest
+  return {
+    id: user.id,
+    email: user.email,
+    name: user.user_metadata?.full_name || user.email?.split('@')[0] || 'Athlete',
+  }
 }
 
-router.post('/register', async (req, res) => {
+router.post('/register', asyncHandler(async (req, res) => {
   const { name, email, password } = req.body ?? {}
-  if (!name || !email || !password) {
+  if (typeof name !== 'string' || !name.trim() || typeof email !== 'string' || !email.trim() || typeof password !== 'string') {
     return res.status(400).json({ error: 'name, email and password are required' })
   }
-  if (password.length < 6) {
-    return res.status(400).json({ error: 'Password must be at least 6 characters' })
-  }
-  const existing = db.find('users', (u) => u.email.toLowerCase() === email.toLowerCase())
-  if (existing) {
-    return res.status(409).json({ error: 'An account with that email already exists' })
+  if (password.length < 8) {
+    return res.status(400).json({ error: 'Password must be at least 8 characters' })
   }
 
-  const passwordHash = await bcrypt.hash(password, 10)
-  const user = {
-    id: nanoid(),
-    name,
-    email,
-    passwordHash,
-    profile: null,
-    createdAt: new Date().toISOString(),
-  }
-  db.insert('users', user)
+  const { data, error } = await createPublicClient().auth.signUp({
+    email: email.trim(),
+    password,
+    options: { data: { full_name: name.trim() } },
+  })
+  if (error) return res.status(error.status || 400).json({ error: error.message })
 
-  res.status(201).json({ token: sign(user.id), user: publicUser(user) })
-})
+  res.status(201).json({
+    token: data.session?.access_token ?? null,
+    refreshToken: data.session?.refresh_token ?? null,
+    user: data.user ? publicUser(data.user) : null,
+    requiresEmailConfirmation: !data.session,
+  })
+}))
 
-router.post('/login', async (req, res) => {
+router.post('/login', asyncHandler(async (req, res) => {
   const { email, password } = req.body ?? {}
-  if (!email || !password) {
+  if (typeof email !== 'string' || !email.trim() || typeof password !== 'string' || !password) {
     return res.status(400).json({ error: 'email and password are required' })
   }
-  const user = db.find('users', (u) => u.email.toLowerCase() === email.toLowerCase())
-  if (!user) return res.status(401).json({ error: 'Invalid email or password' })
 
-  const valid = await bcrypt.compare(password, user.passwordHash)
-  if (!valid) return res.status(401).json({ error: 'Invalid email or password' })
+  const { data, error } = await createPublicClient().auth.signInWithPassword({
+    email: email.trim(),
+    password,
+  })
+  if (error) return res.status(error.status || 401).json({ error: error.message })
 
-  res.json({ token: sign(user.id), user: publicUser(user) })
-})
+  res.json({ token: data.session.access_token, refreshToken: data.session.refresh_token, user: publicUser(data.user) })
+}))
+
+router.post('/refresh', asyncHandler(async (req, res) => {
+  const { refreshToken } = req.body ?? {}
+  if (typeof refreshToken !== 'string' || !refreshToken) {
+    return res.status(400).json({ error: 'refreshToken is required' })
+  }
+  const { data, error } = await createPublicClient().auth.refreshSession({ refresh_token: refreshToken })
+  if (error || !data.session) return res.status(401).json({ error: 'Session expired. Please sign in again.' })
+  res.json({
+    token: data.session.access_token,
+    refreshToken: data.session.refresh_token,
+    user: publicUser(data.user),
+  })
+}))
 
 router.get('/me', requireAuth, (req, res) => {
-  const user = db.find('users', (u) => u.id === req.userId)
-  if (!user) return res.status(404).json({ error: 'User not found' })
-  res.json({ user: publicUser(user) })
+  res.json({ user: publicUser(req.authUser) })
 })
 
 export default router
+

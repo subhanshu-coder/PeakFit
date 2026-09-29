@@ -1,83 +1,37 @@
-# FitForge — Full-Stack Fitness Tracker
+# PeakFit
 
-A complete strength-training program builder: a Monday–Saturday split engine
-(every muscle trained twice a week by default, fully customizable), a diet /
-macro calculator, and set-by-set progress logging with charts.
+PeakFit is a full-stack strength training tracker with workout split planning, exercise browsing, nutrition targets, and workout history.
 
 ## Stack
 
-**Backend** — Node.js, Express, JWT auth (bcryptjs + jsonwebtoken), a
-dependency-free JSON file datastore (`backend/data.json`, auto-created — swap
-for Postgres/Prisma later if you outgrow it).
+- **Frontend:** React, TypeScript, Vite, Tailwind CSS, React Router, Zustand, Recharts, Axios
+- **API:** Node.js and Express
+- **Authentication and data:** Supabase Auth and Postgres, with row-level security on all user-owned tables
 
-**Frontend** — React 18, TypeScript, Vite, Tailwind CSS, Framer Motion
-(hero animations + a magnetic custom cursor), React Router, Zustand (auth
-state), Recharts (progress graphs), Axios.
+## Local setup
 
-## Project structure
+1. Create a Supabase project and enable email/password authentication. The API uses the project's **publishable key**; never put a secret or service-role key in the frontend or API environment.
+2. The migration in [`supabase/migrations/20260927000000_peakfit_core.sql`](supabase/migrations/20260927000000_peakfit_core.sql) has been applied to the PeakFit project. To provision another project, apply it with the Supabase SQL Editor.
+3. Copy `backend/.env.example` to `backend/.env`. The PeakFit project URL and publishable key are already filled in; set the frontend origin(s) in `FRONTEND_URL` for your deployment.
+4. In one terminal, run `cd backend`, `npm install`, and `npm run dev`.
+5. Copy `frontend/.env.example` to `frontend/.env`. In another terminal, run `cd frontend`, `npm install`, and `npm run dev`.
 
-```
-fitforge/
-  backend/
-    src/
-      data/            exercise library + split templates
-      middleware/       JWT auth guard
-      routes/           auth, exercises, plan, diet, logs
-      utils/            diet macro calculator
-      db.js             JSON file datastore
-      server.js         Express app entry
-  frontend/
-    src/
-      components/       Navbar, CustomCursor, RequireAuth, ui/*
-      pages/             Landing, Login, Signup, Dashboard, SplitBuilder,
-                         Exercises, Diet, Progress
-      store/auth.ts       Zustand auth store (localStorage-persisted)
-      lib/api.ts          Axios client with auth header injection
-```
+The API accepts Supabase access tokens, verifies them with Supabase Auth, and uses a request-scoped client so database queries run with the signed-in user's JWT. The database policies independently enforce row ownership. Access tokens refresh through Supabase Auth when the API returns an expired-session response.
 
-## Running it
+## Production hosting
 
-**1. Backend**
+- **Vercel:** import this repository as a new Vercel project from the repository root. `vercel.json` builds the Vite app as a static site and serves the Express API as a serverless function. Add `SUPABASE_URL`, `SUPABASE_PUBLISHABLE_KEY`, and `FRONTEND_URL` as Production environment variables.
+- **GitHub Pages:** the Actions workflow builds and publishes the frontend at `https://subhanshu-coder.github.io/PeakFit/`. It uses the Vercel API at `https://peak-fit-nu.vercel.app/api`; update `VITE_API_URL` in `.github/workflows/pages.yml` if Vercel assigns a different production domain.
 
-```bash
-cd backend
-cp .env.example .env      # edit JWT_SECRET to something random
-npm install
-npm run dev                # http://localhost:5000
-```
+## Features
 
-**2. Frontend** (in a second terminal)
+- Email/password signup and login through Supabase Auth
+- Monday–Saturday workout split templates and day customization
+- Exercise library and muscle-group filtering
+- Mifflin–St Jeor calorie and macro planning
+- Set-by-set workout logging and strength trend charts
+- Per-user data isolation enforced by Postgres RLS
 
-```bash
-cd frontend
-npm install
-npm run dev                # http://localhost:3000
-```
+## Environment variables
 
-Open `http://localhost:3000`, sign up, and you're in.
-
-## How the program logic works
-
-- **Split templates** (`backend/src/data/splitTemplates.js`) map Mon–Sat to
-  muscle groups. The default, `ppl_2x` (Push/Pull/Legs), trains every muscle
-  exactly twice across the week. Two other templates (`upper_lower_3x`,
-  `bro_split`) are included, and you can fully customize any day's muscle
-  groups from the in-app Split Builder — exercises re-populate automatically
-  from the 30+ movement library.
-- **Diet calculator** (`backend/src/utils/diet.js`) uses the Mifflin-St Jeor
-  formula for BMR, an activity multiplier for TDEE, and a goal adjustment
-  (cut −20%, maintain, bulk +15%), then splits macros (2 g/kg protein, 25%
-  calories from fat, remainder as carbs) across four meals.
-- **Progress logging** stores every set (reps + weight) per exercise per day;
-  the Progress page charts the best weight logged per session for any
-  exercise you've tracked.
-
-## Notes
-
-- Auth uses bcryptjs and a signed JWT (30-day expiry) — no native binary
-  dependencies, so `npm install` should be trouble-free on any machine.
-- The custom cursor (`CustomCursor.tsx`) automatically disables itself on
-  touch devices.
-- Swap the JSON datastore for a real database by replacing `backend/src/db.js`
-  — every route only talks to `db.get/insert/update/filter/find`, so the rest
-  of the app doesn't need to change.
+See `backend/.env.example` and `frontend/.env.example`. Keep `.env` files out of version control. The API requires `SUPABASE_URL` and `SUPABASE_PUBLISHABLE_KEY`; it does not need a service-role key.

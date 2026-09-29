@@ -21,7 +21,7 @@ const FEATURES = [
   {
     icon: Target,
     title: 'Built Around You',
-    desc: 'Swap any day, reassign muscle groups, or let FitForge auto-fill exercises from a 30+ movement library.',
+    desc: 'Swap any day, reassign muscle groups, or let PeakFit auto-fill exercises from a 30+ movement library.',
   },
   {
     icon: Salad,
@@ -66,7 +66,7 @@ export default function Landing() {
             </h1>
 
             <p className="max-w-xl text-base text-muted sm:text-lg">
-              FitForge builds your Monday-to-Saturday split, hits every muscle twice a week
+              PeakFit builds your Monday-to-Saturday split, hits every muscle twice a week
               by default, and pairs it with a macro plan built for your goal — all in one place.
             </p>
 
@@ -111,7 +111,7 @@ export default function Landing() {
       {/* FEATURES */}
       <section className="mx-auto max-w-7xl px-6 py-24">
         <div className="mb-14 flex flex-col gap-3">
-          <span className="font-mono text-xs uppercase tracking-wider text-volt">Why FitForge</span>
+          <span className="font-mono text-xs uppercase tracking-wider text-volt">Why PeakFit</span>
           <h2 className="font-display text-4xl tracking-tight sm:text-5xl">
             Everything a real program needs
           </h2>
@@ -185,3 +185,4 @@ export default function Landing() {
     </div>
   )
 }
+
