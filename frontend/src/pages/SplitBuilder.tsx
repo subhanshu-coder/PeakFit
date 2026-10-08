@@ -63,9 +63,9 @@ export default function SplitBuilder() {
   }
 
   return (
-    <div className="mx-auto max-w-5xl px-6 py-16">
-      <span className="font-mono text-xs uppercase tracking-wider text-volt">Customize</span>
-      <h1 className="mt-2 font-display text-4xl tracking-tight sm:text-5xl">Build Your Own Split</h1>
+    <div className="app-page split-page mx-auto max-w-5xl px-6 py-16">
+      <span className="app-overline"><span className="status-dot" /> TRAINING ARCHITECTURE</span>
+      <h1 className="mt-2 font-display text-4xl tracking-tight sm:text-5xl">Build your <em>week.</em></h1>
       <p className="mt-3 max-w-xl text-muted">
         Toggle muscle groups per day. Exercises auto-fill from the library when you save.
       </p>
