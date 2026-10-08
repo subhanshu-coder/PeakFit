@@ -6,6 +6,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import CustomCursor from '@/components/CustomCursor'
 import Navbar from '@/components/Navbar'
 import RequireAuth from '@/components/RequireAuth'
+import { useAuthStore } from '@/store/auth'
 
 import Landing from '@/pages/Landing'
 import Login from '@/pages/Login'
@@ -19,6 +20,7 @@ const Diet = lazy(() => import('@/pages/Diet'))
 const Progress = lazy(() => import('@/pages/Progress'))
 
 export default function App() {
+  const user = useAuthStore((state) => state.user)
   useEffect(() => {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
     gsap.registerPlugin(ScrollTrigger)
@@ -40,6 +42,7 @@ export default function App() {
     <div className="min-h-screen bg-ink text-bone">
       <CustomCursor />
       <Navbar />
+      <main className={user ? 'app-main' : undefined}>
       <Suspense fallback={<div className="route-loading"><span className="status-dot" /> PREPARING YOUR TRAINING SPACE</div>}>
       <Routes>
         <Route path="/" element={isOAuthCallback ? <AuthCallback /> : <Landing />} />
@@ -87,6 +90,7 @@ export default function App() {
         />
       </Routes>
       </Suspense>
+      </main>
     </div>
   )
 }
