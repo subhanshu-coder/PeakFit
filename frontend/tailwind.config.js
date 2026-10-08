@@ -10,15 +10,15 @@ export default {
         mono: ["'JetBrains Mono'", 'monospace'],
       },
       colors: {
-        ink: '#0A0A0E',
-        surface: '#131318',
-        surface2: '#1B1B22',
-        line: '#2A2A33',
-        bone: '#F3F1EA',
-        muted: '#8B8B96',
+        ink: '#0A0D0A',
+        surface: '#111710',
+        surface2: '#171E16',
+        line: '#263026',
+        bone: '#EEF1E7',
+        muted: '#8D978A',
         volt: {
-          DEFAULT: '#C6FF3A',
-          dim: '#8FBF1E',
+          DEFAULT: '#BAFF3B',
+          dim: '#8CBF2C',
         },
         violet: {
           DEFAULT: '#8B5CF6',
@@ -39,3 +39,4 @@ export default {
   },
   plugins: [],
 }
+

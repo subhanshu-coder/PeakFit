@@ -4,6 +4,7 @@ import { BrowserRouter } from 'react-router-dom'
 import App from './App'
 // @ts-ignore: allow side-effect CSS import when no type declarations are present
 import './index.css'
+import 'lenis/dist/lenis.css'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>

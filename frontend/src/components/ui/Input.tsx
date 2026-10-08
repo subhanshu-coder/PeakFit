@@ -16,7 +16,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
         <input
           ref={ref}
           id={id}
-          className={`h-11 rounded-lg border border-line bg-surface2 px-4 text-sm text-bone outline-none transition-colors placeholder:text-muted/60 focus:border-volt ${className}`}
+          className={`h-12 rounded-[3px] border border-line bg-[#0c100c] px-4 text-sm text-bone outline-none transition-colors placeholder:text-muted/60 focus:border-volt ${className}`}
           {...props}
         />
       </div>
@@ -41,7 +41,7 @@ export function Select({
       )}
       <select
         id={id}
-        className={`h-11 rounded-lg border border-line bg-surface2 px-4 text-sm text-bone outline-none transition-colors focus:border-volt ${className}`}
+        className={`h-12 rounded-[3px] border border-line bg-[#0c100c] px-4 text-sm text-bone outline-none transition-colors focus:border-volt ${className}`}
         {...props}
       >
         {children}
@@ -49,3 +49,4 @@ export function Select({
     </div>
   )
 }
+

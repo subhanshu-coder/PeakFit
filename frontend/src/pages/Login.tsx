@@ -33,10 +33,16 @@ export default function Login() {
   }
 
   return (
-    <div className="mx-auto flex min-h-[80vh] max-w-md flex-col justify-center px-6 py-16">
-      <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }}>
-        <h1 className="font-display text-4xl tracking-tight">Welcome back</h1>
-        <p className="mt-2 text-sm text-muted">Log in to keep training your program.</p>
+    <div className="auth-page">
+      <div className="auth-art-panel">
+        <span className="eyebrow"><span className="status-dot" /> PEAKFIT / MEMBER ACCESS</span>
+        <div className="auth-art-orbit" />
+        <p className="auth-art-kicker">YOUR NEXT REP<br />STARTS HERE.</p>
+        <span className="auth-art-index">PF—01 / KEEP CLIMBING</span>
+      </div>
+      <motion.div className="auth-form-panel" initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }}>
+        <div className="auth-intro"><span className="eyebrow">GOOD TO HAVE YOU BACK</span><h1 className="mt-3 font-display text-4xl tracking-tight">Welcome back<span className="text-volt">.</span></h1>
+        <p className="mt-2 text-sm text-muted">Pick up where your work left off.</p></div>
 
         <Card className="mt-8 p-6">
           <GoogleSignInButton onError={setError} />
@@ -77,3 +83,4 @@ export default function Login() {
     </div>
   )
 }
+

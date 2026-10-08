@@ -17,12 +17,14 @@ export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false)
 
   return (
-    <header className="sticky top-0 z-40 border-b border-line/60 bg-ink/85 backdrop-blur">
-      <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
-        <Link to="/" data-cursor="home" className="flex items-center gap-2">
-          <Dumbbell className="h-5 w-5 text-volt" />
-          <span className="font-display text-xl tracking-wide">PEAK<span className="text-volt">FIT</span></span>
+    <header className="peak-nav sticky top-0 z-40">
+      <div className="mx-auto flex max-w-[1600px] items-center justify-between px-6 py-4 md:px-10">
+        <Link to="/" data-cursor="home" className="flex items-center gap-2.5">
+          <span className="brand-symbol"><Dumbbell className="h-4 w-4" /></span>
+          <span className="font-display text-[19px] font-bold tracking-[-0.06em]">PEAK<span className="text-volt">FIT</span><sup className="ml-0.5 text-[8px] text-muted">®</sup></span>
         </Link>
+
+        <span className="hidden font-mono text-[9px] tracking-[0.18em] text-muted lg:block">TRAINING, DESIGNED AROUND YOU</span>
 
         {user && (
           <nav className="hidden items-center gap-8 md:flex">
@@ -31,7 +33,7 @@ export default function Navbar() {
                 key={l.to}
                 to={l.to}
                 data-cursor="view"
-                className={({ isActive }) => `font-mono text-xs uppercase tracking-wider transition-colors hover:text-bone ${isActive ? 'text-volt' : 'text-muted'}`}
+                className={({ isActive }) => `font-mono text-[10px] uppercase tracking-[0.16em] transition-colors hover:text-bone ${isActive ? 'text-volt' : 'text-muted'}`}
                 onClick={() => setMenuOpen(false)}
               >
                 {l.label}

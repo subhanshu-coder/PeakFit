@@ -9,8 +9,8 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 const variants: Record<Variant, string> = {
-  primary: 'bg-volt text-ink hover:bg-volt-dim',
-  outline: 'border border-line text-bone hover:border-volt hover:text-volt bg-transparent',
+  primary: 'bg-volt text-ink hover:bg-volt-dim shadow-[0_8px_25px_rgba(186,255,59,.08)]',
+  outline: 'border border-line text-bone hover:border-volt/60 hover:text-volt bg-transparent',
   ghost: 'text-bone hover:text-volt bg-transparent',
 }
 
@@ -26,7 +26,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       <button
         ref={ref}
         data-cursor="click"
-        className={`inline-flex items-center justify-center gap-2 rounded-full font-mono uppercase tracking-wider transition-colors disabled:pointer-events-none disabled:opacity-40 ${variants[variant]} ${sizes[size]} ${className}`}
+        className={`inline-flex items-center justify-center gap-2 rounded-[3px] font-mono text-[10px] font-medium uppercase tracking-[0.12em] transition-all duration-200 disabled:pointer-events-none disabled:opacity-40 ${variants[variant]} ${sizes[size]} ${className}`}
         {...props}
       >
         {children}
@@ -35,3 +35,4 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   }
 )
 Button.displayName = 'Button'
+

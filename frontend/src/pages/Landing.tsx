@@ -1,187 +1,72 @@
-import { motion } from 'framer-motion'
+import { lazy, Suspense, useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
-import {
-  Dumbbell,
-  Salad,
-  LineChart,
-  Sparkles,
-  Repeat,
-  Target,
-  ArrowUpRight,
-} from 'lucide-react'
-import { Button } from '@/components/ui/Button'
-import { Card } from '@/components/ui/Card'
+import { ArrowDown, ArrowUpRight, Activity, CircleDot, Flame, MoveUpRight, Sparkles } from 'lucide-react'
+import { gsap } from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
-const FEATURES = [
-  {
-    icon: Repeat,
-    title: 'Science-Backed Splits',
-    desc: 'Push/Pull/Legs, Upper/Lower, or fully custom — every muscle hits twice a week by default, tuned to how you actually recover.',
-  },
-  {
-    icon: Target,
-    title: 'Built Around You',
-    desc: 'Swap any day, reassign muscle groups, or let PeakFit auto-fill exercises from a 30+ movement library.',
-  },
-  {
-    icon: Salad,
-    title: 'Diet That Matches Training',
-    desc: 'TDEE and macros calculated from your stats and goal, split across meals so nutrition tracks the same plan as your lifts.',
-  },
-  {
-    icon: LineChart,
-    title: 'Progress You Can See',
-    desc: 'Log every set. Watch your top lifts trend upward on a real progress chart, not a spreadsheet you forget to open.',
-  },
-]
+const PeakOrb = lazy(() => import('@/components/PeakOrb'))
 
-const STEPS = [
-  { n: '01', title: 'Set your goal', desc: 'Cut, maintain, or bulk — tell us your stats once.' },
-  { n: '02', title: 'Pick your split', desc: 'Choose a template or build Mon–Sat from scratch.' },
-  { n: '03', title: 'Train & log', desc: 'Hit the gym, log sets, watch the numbers move.' },
+gsap.registerPlugin(ScrollTrigger)
+
+const features = [
+  { no: '01', icon: Activity, title: 'Training, with intent.', text: 'A program that adapts to your rhythm. Build your split, tune every session, and keep the momentum yours.' },
+  { no: '02', icon: Flame, title: 'Fuel the work.', text: 'Turn your daily target into a clear plan. Practical macros that make sense in and out of the gym.' },
+  { no: '03', icon: MoveUpRight, title: 'Progress you can feel.', text: 'Every rep becomes a signal. Track your work over time and see the strength you are building.' },
 ]
 
 export default function Landing() {
+  const root = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+    const ctx = gsap.context(() => {
+      gsap.fromTo('.hero-enter', { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 1, stagger: 0.12, ease: 'power3.out', delay: 0.12 })
+      gsap.utils.toArray<HTMLElement>('[data-reveal]').forEach((element) => {
+        gsap.fromTo(element, { y: 42, opacity: 0 }, { y: 0, opacity: 1, duration: 0.85, ease: 'power3.out', scrollTrigger: { trigger: element, start: 'top 86%', once: true } })
+      })
+      gsap.to('.ticker-track', { xPercent: -30, ease: 'none', scrollTrigger: { trigger: '.ticker-wrap', start: 'top bottom', end: 'bottom top', scrub: 1 } })
+    }, root)
+    return () => ctx.revert()
+  }, [])
+
   return (
-    <div className="relative overflow-hidden">
-      {/* HERO */}
-      <section className="relative border-b border-line/60">
-        <div className="absolute inset-0 bg-grid bg-grid opacity-40" />
-        <div className="relative mx-auto max-w-7xl px-6 pb-24 pt-24 sm:pt-32">
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="flex flex-col items-start gap-6"
-          >
-            <span className="inline-flex items-center gap-2 rounded-full border border-volt/30 bg-volt/10 px-4 py-1.5 font-mono text-[11px] uppercase tracking-wider text-volt">
-              <Sparkles className="h-3.5 w-3.5" />
-              Your program, built in minutes
-            </span>
-
-            <h1 className="max-w-3xl font-display text-6xl leading-[0.95] tracking-tight sm:text-7xl md:text-8xl">
-              Train smart.
-              <br />
-              <span className="text-gradient">Track everything.</span>
-            </h1>
-
-            <p className="max-w-xl text-base text-muted sm:text-lg">
-              PeakFit builds your Monday-to-Saturday split, hits every muscle twice a week
-              by default, and pairs it with a macro plan built for your goal — all in one place.
-            </p>
-
-            <div className="flex flex-col gap-3 sm:flex-row">
-              <Link to="/signup">
-                <Button size="lg" data-cursor="start">
-                  Build My Program
-                  <ArrowUpRight className="h-4 w-4" />
-                </Button>
-              </Link>
-              <Link to="/login">
-                <Button size="lg" variant="outline">
-                  I Have An Account
-                </Button>
-              </Link>
-            </div>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.15 }}
-            className="mt-16 grid grid-cols-2 gap-4 sm:grid-cols-4"
-          >
-            {[
-              { label: 'Exercises in library', value: '30+' },
-              { label: 'Split templates', value: '3' },
-              { label: 'Muscle exposures / week', value: '2x' },
-              { label: 'Days fully customizable', value: '6' },
-            ].map((s) => (
-              <div key={s.label} className="rounded-xl border border-line bg-surface/60 p-5">
-                <p className="font-mono text-3xl font-semibold text-volt">{s.value}</p>
-                <p className="mt-1 font-mono text-[11px] uppercase tracking-wider text-muted">
-                  {s.label}
-                </p>
-              </div>
-            ))}
-          </motion.div>
-        </div>
-      </section>
-
-      {/* FEATURES */}
-      <section className="mx-auto max-w-7xl px-6 py-24">
-        <div className="mb-14 flex flex-col gap-3">
-          <span className="font-mono text-xs uppercase tracking-wider text-volt">Why PeakFit</span>
-          <h2 className="font-display text-4xl tracking-tight sm:text-5xl">
-            Everything a real program needs
-          </h2>
-        </div>
-
-        <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
-          {FEATURES.map((f, i) => (
-            <motion.div
-              key={f.title}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-80px' }}
-              transition={{ duration: 0.5, delay: i * 0.08 }}
-            >
-              <Card className="group h-full p-8 transition-colors hover:border-volt/40">
-                <f.icon className="h-7 w-7 text-volt" strokeWidth={1.75} />
-                <h3 className="mt-5 font-display text-2xl tracking-wide">{f.title}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-muted">{f.desc}</p>
-              </Card>
-            </motion.div>
-          ))}
-        </div>
-      </section>
-
-      {/* HOW IT WORKS */}
-      <section className="border-y border-line/60 bg-surface/30 py-24">
-        <div className="mx-auto max-w-7xl px-6">
-          <div className="mb-14 flex flex-col gap-3">
-            <span className="font-mono text-xs uppercase tracking-wider text-volt">Process</span>
-            <h2 className="font-display text-4xl tracking-tight sm:text-5xl">Three steps to a plan</h2>
-          </div>
-
-          <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
-            {STEPS.map((s, i) => (
-              <motion.div
-                key={s.n}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: i * 0.1 }}
-                className="relative"
-              >
-                <span className="font-display text-7xl text-line">{s.n}</span>
-                <h3 className="mt-2 font-display text-2xl tracking-wide">{s.title}</h3>
-                <p className="mt-2 text-sm text-muted">{s.desc}</p>
-              </motion.div>
-            ))}
+    <div ref={root} className="peak-site">
+      <section className="peak-hero">
+        <div className="hero-noise" />
+        <div className="hero-grid" />
+        <div className="hero-copy">
+          <p className="eyebrow hero-enter"><span className="status-dot" /> YOUR TRAINING, IN ITS ELEMENT</p>
+          <h1 className="hero-enter">MAKE<br /><em>ROOM</em><br />TO RISE<span className="hero-period">.</span></h1>
+          <div className="hero-foot hero-enter">
+            <p>A training system for people who show up.<br />Build a plan. Find your pace. Keep climbing.</p>
+            <Link to="/signup" className="peak-cta-link">Start your ascent <ArrowUpRight size={17} /></Link>
           </div>
         </div>
+        <div className="hero-art" aria-label="Interactive three-dimensional PeakFit energy sculpture"><Suspense fallback={<div className="peak-orb-fallback" />}><PeakOrb /></Suspense></div>
+        <div className="hero-coordinate">PF / 001 — PERSONAL TRAINING SYSTEM</div>
+        <div className="hero-scroll"><ArrowDown size={14} /> SCROLL TO EXPLORE</div>
+        <div className="hero-index">01 — 04</div>
+        <div className="hero-note"><span>FIG. 01</span><br />The compounding<br />effect of showing up.</div>
       </section>
 
-      {/* CTA */}
-      <section className="mx-auto max-w-7xl px-6 py-24">
-        <div className="relative overflow-hidden rounded-3xl border border-line bg-surface p-12 text-center sm:p-20">
-          <div className="absolute inset-0 bg-grid bg-grid opacity-20" />
-          <Dumbbell className="relative mx-auto h-10 w-10 text-volt" />
-          <h2 className="relative mt-6 font-display text-4xl tracking-tight sm:text-5xl">
-            Your split is one click away.
-          </h2>
-          <p className="relative mx-auto mt-3 max-w-md text-muted">
-            Free to start. No card required. Six days, one program, built for you.
-          </p>
-          <Link to="/signup">
-            <Button size="lg" className="relative mt-8">
-              Build My Program
-              <ArrowUpRight className="h-4 w-4" />
-            </Button>
-          </Link>
+      <section className="manifesto" data-reveal>
+        <div className="manifesto-side eyebrow">A BETTER KIND<br />OF STRONG <CircleDot size={13} /></div>
+        <p>Not another plan you abandon.<br /><span>PeakFit makes consistency</span><br /><span>feel like your superpower.</span></p>
+        <div className="manifesto-mark">P<span>F</span></div>
+      </section>
+
+      <div className="ticker-wrap"><div className="ticker-track">SHOW UP <span>✳</span> FIND YOUR PACE <span>✳</span> KEEP CLIMBING <span>✳</span> SHOW UP <span>✳</span> FIND YOUR PACE <span>✳</span> KEEP CLIMBING <span>✳</span></div></div>
+
+      <section className="features-section">
+        <div className="section-heading" data-reveal><div><p className="eyebrow">THE SYSTEM / 03 PARTS</p><h2>BUILT FOR<br /><em>THE LONG RUN.</em></h2></div><p className="section-aside">Small, deliberate steps.<br />Remarkable distance.</p></div>
+        <div className="feature-list">
+          {features.map(({ no, icon: Icon, title, text }) => <article className="feature-row" data-reveal key={no}><span className="feature-number">{no}</span><span className="feature-icon"><Icon size={22} strokeWidth={1.4} /></span><div className="feature-content"><h3>{title}</h3><p>{text}</p></div><ArrowUpRight className="feature-arrow" size={20} /></article>)}
         </div>
       </section>
+
+      <section className="closing-section" data-reveal><div className="closing-glow" /><p className="eyebrow"><Sparkles size={13} /> YOUR NEXT REP STARTS HERE</p><h2>THE VIEW<br />IS BETTER <em>UP HERE.</em></h2><div className="closing-bottom"><p>Your next chapter is one good session away.</p><Link to="/signup" className="peak-cta-link">Build your program <ArrowUpRight size={17} /></Link></div><span className="closing-stamp">PEAKFIT / EST. FOR THE CLIMB</span></section>
+
+      <footer className="peak-footer"><Link to="/" className="footer-brand">PEAK<span>FIT</span><sup>®</sup></Link><span>MADE FOR THE WORK.</span><Link to="/login" className="footer-login">MEMBER LOGIN <ArrowUpRight size={13} /></Link></footer>
     </div>
   )
 }
