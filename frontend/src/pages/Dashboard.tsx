@@ -75,14 +75,25 @@ export default function Dashboard() {
   }
 
   return (
-    <div className="mx-auto max-w-7xl px-6 py-16">
+    <div className="app-page dashboard-page mx-auto max-w-7xl px-6 py-16">
       <div className="flex flex-col gap-2">
-        <span className="font-mono text-xs uppercase tracking-wider text-volt">{user ? `Welcome back, ${user.name.split(' ')[0]}` : 'PeakFit training hub'}</span>
+        <span className="app-overline"><span className="status-dot" /> {user ? `WELCOME BACK, ${user.name.split(' ')[0]}` : 'YOUR PERFORMANCE SPACE'}</span>
         <div className="flex flex-wrap items-end justify-between gap-4">
-          <div><h1 className="font-display text-4xl tracking-tight sm:text-5xl">Your training hub</h1><p className="mt-2 max-w-xl text-muted">Your plan, sessions, and daily fuel—all in one place.</p></div>
+          <div><h1 className="font-display text-4xl tracking-tight sm:text-5xl">Your training <em>floor.</em></h1><p className="mt-2 max-w-xl text-muted">The work you put in. The progress you take with you.</p></div>
           <Link to="/progress"><Button size="sm">Log a workout <ArrowUpRight className="h-4 w-4" /></Button></Link>
         </div>
       </div>
+
+      <section className="dashboard-hero">
+        <div className="dashboard-hero-orbit" aria-hidden="true"><span /><span /><span /></div>
+        <div className="dashboard-hero-copy"><span className="dashboard-hero-kicker"><span /> THE ONLY REP THAT COUNTS IS THE NEXT ONE</span>
+          <h2>{plan ? <>Ready when <em>you are.</em></> : <>Build a rhythm.<br /><em>Then break it.</em></>}</h2>
+          <p>{plan ? `Your ${plan.label} is ready. Keep stacking the sessions that make you stronger.` : 'Your training space is waiting. Pick a split and make it yours, one session at a time.'}</p>
+          <Link to={plan ? '/progress' : '/split-builder'} className="dashboard-hero-action">{plan ? 'LOG THIS SESSION' : 'DESIGN YOUR WEEK'} <ArrowUpRight size={15} /></Link>
+        </div>
+        <div className="dashboard-hero-stamp"><span>PF</span><small>MOVE<br />WITH<br />INTENT</small></div>
+        <div className="dashboard-hero-footer"><span>01 — SHOW UP</span><span>02 — FIND YOUR PACE</span><span>03 — KEEP CLIMBING</span></div>
+      </section>
 
       <div className="mt-8 grid grid-cols-1 gap-3 sm:grid-cols-3">
         <Card className="flex items-center gap-4 p-5"><div className="rounded-xl bg-volt/10 p-3"><Activity className="h-5 w-5 text-volt" /></div><div><p className="font-mono text-[10px] uppercase tracking-wider text-muted">Sessions logged</p><p className="mt-1 font-display text-2xl">{logs.length}<span className="ml-2 text-sm font-sans text-muted">all time</span></p></div></Card>
