@@ -267,3 +267,10 @@ body:has(.workspace-sidebar) { background:var(--app-bg); }
 @media(prefers-reduced-motion:reduce){.workspace-side-link,.app-page button{transition:none}}
 
 .app-page .rounded-2xl{transition:border-color .22s ease,box-shadow .22s ease,transform .22s ease}.app-page ::selection{background:var(--app-lime);color:#10140b}.workspace-sidebar ::selection{background:var(--app-blue);color:#11131a}
+
+.app-page :focus-visible,.workspace-sidebar a:focus-visible,.workspace-user button:focus-visible{outline:2px solid var(--app-lime);outline-offset:3px}.workspace-side-link:focus-visible{color:var(--app-lime)}
+.split-page .flex.flex-wrap.gap-2{row-gap:10px}.split-page button:has(.cursor-pointer):focus-visible{outline:2px solid var(--app-blue);outline-offset:3px}
+.diet-page .grid.sm\\:grid-cols-4 .font-mono.text-2xl{color:var(--app-lime);font-family:'Space Grotesk',sans-serif;font-size:29px}.diet-page .grid.sm\\:grid-cols-2>.rounded-2xl{border-left:2px solid rgba(198,255,58,.32)}
+.exercise-card:hover{transform:translateY(-4px);border-color:rgba(198,255,58,.28)!important;box-shadow:0 24px 60px rgba(0,0,0,.28)}
+.progress-page .recharts-wrapper{filter:drop-shadow(0 8px 20px rgba(198,255,58,.08))}.progress-page .mt-4.flex.flex-col.gap-3>.rounded-2xl{border-left:2px solid rgba(157,170,255,.38)}
+@media(max-width:760px){.workspace-mobile-nav a{display:flex;align-items:center;min-height:46px;border-bottom:1px solid rgba(217,225,244,.06)}.workspace-header .workspace-mobile-nav{padding-bottom:12px}.workspace-header .workspace-mobile-nav a:last-child{border-bottom:0}}
