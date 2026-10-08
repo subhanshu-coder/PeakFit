@@ -56,9 +56,9 @@ export default function Diet() {
   }
 
   return (
-    <div className="mx-auto max-w-5xl px-6 py-16">
-      <span className="font-mono text-xs uppercase tracking-wider text-volt">Nutrition</span>
-      <h1 className="mt-2 font-display text-4xl tracking-tight sm:text-5xl">Diet Plan</h1>
+    <div className="app-page diet-page mx-auto max-w-5xl px-6 py-16">
+      <span className="app-overline"><span className="status-dot" /> NUTRITION, WITHOUT THE GUESSWORK</span>
+      <h1 className="mt-2 font-display text-4xl tracking-tight sm:text-5xl">Fuel your <em>next level.</em></h1>
       <p className="mt-3 max-w-xl text-muted">
         Calories and macros calculated from your stats and goal, split evenly across your day.
       </p>
@@ -119,6 +119,7 @@ export default function Diet() {
           </form>
         </Card>
 
+        {!result && <Card className="diet-empty"><div className="diet-empty-art"><span>01</span><Flame size={35} /></div><p className="app-overline">YOUR DAILY BLUEPRINT</p><h2>Your numbers,<br />made actionable.</h2><p>Set your stats and goal. We’ll turn the science into a simple daily target and a meal rhythm you can actually follow.</p><div className="diet-empty-macros"><span>PROTEIN <b>01</b></span><span>ENERGY <b>02</b></span><span>RHYTHM <b>03</b></span></div></Card>}
         {result && (
           <motion.div
             initial={{ opacity: 0, y: 16 }}
