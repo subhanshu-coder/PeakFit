@@ -88,9 +88,9 @@ export default function Progress() {
   )
 
   return (
-    <div className="mx-auto max-w-6xl px-6 py-16">
-      <span className="font-mono text-xs uppercase tracking-wider text-volt">Tracking</span>
-      <h1 className="mt-2 font-display text-4xl tracking-tight sm:text-5xl">Progress</h1>
+    <div className="app-page progress-page mx-auto max-w-6xl px-6 py-16">
+      <span className="app-overline"><span className="status-dot" /> THE PROOF IS IN THE REPS</span>
+      <h1 className="mt-2 font-display text-4xl tracking-tight sm:text-5xl">Earned, <em>not given.</em></h1>
       <p className="mt-3 max-w-xl text-muted">
         Log every set you complete. Chart the top weight per exercise over time.
       </p>
