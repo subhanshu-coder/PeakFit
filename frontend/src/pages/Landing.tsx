@@ -86,9 +86,9 @@ export default function Landing() {
 
       <div className="ticker-wrap"><div className="ticker-track">SHOW UP <span>✳</span> FIND YOUR PACE <span>✳</span> KEEP CLIMBING <span>✳</span> SHOW UP <span>✳</span> FIND YOUR PACE <span>✳</span> KEEP CLIMBING <span>✳</span></div></div>
 
-      <section className="moments-section" id="training">
+      <section className="moments-section" id="training" aria-labelledby="moments-title">
         <div className="moments-heading" data-reveal>
-          <div><p className="eyebrow">THE PEAKFIT APPROACH / IN REAL LIFE</p><h2>MADE FOR<br /><em>THE WORK.</em></h2></div>
+          <div><p className="eyebrow">THE PEAKFIT APPROACH / IN REAL LIFE</p><h2 id="moments-title">MADE FOR<br /><em>THE WORK.</em></h2></div>
           <p>Good training is personal.<br />Your plan should be, too.</p>
         </div>
         <div className="moments-grid">
