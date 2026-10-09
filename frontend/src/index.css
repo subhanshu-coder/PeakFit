@@ -326,3 +326,7 @@ body:has(.workspace-sidebar) { background:var(--app-bg); }
 /* Keyboard users can skip the marketing hero directly to the training stories. */
 .skip-link { position:fixed; z-index:100; top:12px; left:12px; padding:12px 16px; transform:translateY(-160%); border:1px solid rgba(186,255,59,.55); border-radius:4px; background:#0a0d0a; color:#f1f3e9; font:10px 'JetBrains Mono',monospace; letter-spacing:.08em; text-decoration:none; }
 .skip-link:focus { transform:translateY(0); outline:2px solid var(--pf-green); outline-offset:3px; }
+
+
+/* A clear chartreuse focus ring keeps public navigation usable without a mouse. */
+.peak-site a:focus-visible,.peak-nav a:focus-visible,.peak-nav button:focus-visible { outline:2px solid var(--pf-green); outline-offset:4px; border-radius:3px; }
