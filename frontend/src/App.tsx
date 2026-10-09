@@ -1,4 +1,4 @@
-import { Routes, Route } from 'react-router-dom'
+import { Routes, Route, Navigate } from 'react-router-dom'
 import { lazy, Suspense, useEffect } from 'react'
 import Lenis from 'lenis'
 import { gsap } from 'gsap'
@@ -45,9 +45,9 @@ export default function App() {
       <main className={user ? 'app-main' : undefined}>
       <Suspense fallback={<div className="route-loading"><span className="status-dot" /> PREPARING YOUR TRAINING SPACE</div>}>
       <Routes>
-        <Route path="/" element={isOAuthCallback ? <AuthCallback /> : <Landing />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<Signup />} />
+        <Route path="/" element={isOAuthCallback ? <AuthCallback /> : user ? <Navigate to="/dashboard" replace /> : <Landing />} />
+        <Route path="/login" element={user ? <Navigate to="/dashboard" replace /> : <Login />} />
+        <Route path="/signup" element={user ? <Navigate to="/dashboard" replace /> : <Signup />} />
         <Route
           path="/dashboard"
           element={
