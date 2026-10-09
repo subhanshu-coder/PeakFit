@@ -53,6 +53,7 @@ export default function Landing() {
 
   return (
     <div ref={root} className="peak-site">
+      <a className="skip-link" href="#training">Skip to training stories</a>
       <section className="peak-hero">
         <div className="hero-photo" aria-hidden="true">
           <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=2200&q=90" alt="" fetchPriority="high" />
