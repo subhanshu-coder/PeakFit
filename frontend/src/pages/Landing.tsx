@@ -1,17 +1,39 @@
-import { lazy, Suspense, useEffect, useRef } from 'react'
+import { useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { ArrowDown, ArrowUpRight, Activity, CircleDot, Flame, MoveUpRight, Sparkles } from 'lucide-react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
-const PeakOrb = lazy(() => import('@/components/PeakOrb'))
-
 gsap.registerPlugin(ScrollTrigger)
 
 const features = [
-  { no: '01', icon: Activity, title: 'Training, with intent.', text: 'A program that adapts to your rhythm. Build your split, tune every session, and keep the momentum yours.' },
-  { no: '02', icon: Flame, title: 'Fuel the work.', text: 'Turn your daily target into a clear plan. Practical macros that make sense in and out of the gym.' },
-  { no: '03', icon: MoveUpRight, title: 'Progress you can feel.', text: 'Every rep becomes a signal. Track your work over time and see the strength you are building.' },
+  { no: '01', icon: Activity, title: 'Training, with intent.', text: 'Build a split that fits your week, shape each session, and keep the momentum yours.' },
+  { no: '02', icon: Flame, title: 'Fuel the work.', text: 'Set a daily nutrition target and turn it into practical guidance you can follow.' },
+  { no: '03', icon: MoveUpRight, title: 'Progress you can feel.', text: 'Log your work over time and see the consistency behind your strength.' },
+]
+
+const trainingMoments = [
+  {
+    index: '01 / TRAIN WITH PURPOSE',
+    title: 'Make every session count.',
+    image: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=1200&q=85',
+    alt: 'Strength training area with barbells and gym equipment',
+    className: 'moment-card moment-card-wide',
+  },
+  {
+    index: '02 / FIND YOUR RHYTHM',
+    title: 'Build a routine that lasts.',
+    image: 'https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&w=1000&q=85',
+    alt: 'Athlete focused on a strength training session',
+    className: 'moment-card',
+  },
+  {
+    index: '03 / RECOVER WITH INTENT',
+    title: 'Progress lives between reps.',
+    image: 'https://images.unsplash.com/photo-1546483875-ad9014c88eba?auto=format&fit=crop&w=1000&q=85',
+    alt: 'Athlete stretching after a workout',
+    className: 'moment-card',
+  },
 ]
 
 export default function Landing() {
@@ -32,6 +54,9 @@ export default function Landing() {
   return (
     <div ref={root} className="peak-site">
       <section className="peak-hero">
+        <div className="hero-photo" aria-hidden="true">
+          <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=2200&q=90" alt="" fetchPriority="high" />
+        </div>
         <div className="hero-noise" />
         <div className="hero-grid" />
         <div className="hero-copy">
@@ -42,11 +67,11 @@ export default function Landing() {
             <Link to="/signup" className="peak-cta-link">Start your ascent <ArrowUpRight size={17} /></Link>
           </div>
         </div>
-        <div className="hero-art" aria-label="Interactive three-dimensional PeakFit energy sculpture"><Suspense fallback={<div className="peak-orb-fallback" />}><PeakOrb /></Suspense></div>
         <div className="hero-coordinate">PF / 001 — PERSONAL TRAINING SYSTEM</div>
-        <div className="hero-scroll"><ArrowDown size={14} /> SCROLL TO EXPLORE</div>
+        <a className="hero-scroll" href="#training"><ArrowDown size={14} /> SCROLL TO EXPLORE</a>
         <div className="hero-index">01 — 04</div>
         <div className="hero-note"><span>FIG. 01</span><br />The compounding<br />effect of showing up.</div>
+        <div className="hero-photo-credit">A SPACE TO DO THE WORK <span>PEAKFIT / 001</span></div>
       </section>
 
       <section className="manifesto" data-reveal>
@@ -56,6 +81,24 @@ export default function Landing() {
       </section>
 
       <div className="ticker-wrap"><div className="ticker-track">SHOW UP <span>✳</span> FIND YOUR PACE <span>✳</span> KEEP CLIMBING <span>✳</span> SHOW UP <span>✳</span> FIND YOUR PACE <span>✳</span> KEEP CLIMBING <span>✳</span></div></div>
+
+      <section className="moments-section" id="training">
+        <div className="moments-heading" data-reveal>
+          <div><p className="eyebrow">THE PEAKFIT APPROACH / IN REAL LIFE</p><h2>MADE FOR<br /><em>THE WORK.</em></h2></div>
+          <p>Good training is personal.<br />Your plan should be, too.</p>
+        </div>
+        <div className="moments-grid">
+          {trainingMoments.map((moment) => (
+            <article className={moment.className} data-reveal key={moment.index}>
+              <img src={moment.image} alt={moment.alt} loading="lazy" />
+              <div className="moment-shade" />
+              <p className="moment-index">{moment.index}</p>
+              <h3>{moment.title}</h3>
+              <ArrowUpRight className="moment-arrow" size={19} aria-hidden="true" />
+            </article>
+          ))}
+        </div>
+      </section>
 
       <section className="features-section">
         <div className="section-heading" data-reveal><div><p className="eyebrow">THE SYSTEM / 03 PARTS</p><h2>BUILT FOR<br /><em>THE LONG RUN.</em></h2></div><p className="section-aside">Small, deliberate steps.<br />Remarkable distance.</p></div>
@@ -70,4 +113,3 @@ export default function Landing() {
     </div>
   )
 }
-
