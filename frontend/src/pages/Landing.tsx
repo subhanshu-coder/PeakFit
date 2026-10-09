@@ -18,7 +18,7 @@ const trainingMoments = [
     title: 'Make every session count.',
     image: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=900&q=85',
     srcSet: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=600&q=80 600w, https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=1000&q=85 1000w, https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=1400&q=85 1400w',
-    alt: 'Strength training area with barbells and gym equipment',
+    alt: 'Strength training area with barbells, dumbbells, and weight machines',
     className: 'moment-card moment-card-wide',
   },
   {
@@ -26,7 +26,7 @@ const trainingMoments = [
     title: 'Build a routine that lasts.',
     image: 'https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&w=800&q=85',
     srcSet: 'https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&w=500&q=80 500w, https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&w=900&q=85 900w, https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&w=1200&q=85 1200w',
-    alt: 'Athlete focused on a strength training session',
+    alt: 'Athlete concentrating during a strength training session',
     className: 'moment-card',
   },
   {
@@ -34,7 +34,7 @@ const trainingMoments = [
     title: 'Progress lives between reps.',
     image: 'https://images.unsplash.com/photo-1546483875-ad9014c88eba?auto=format&fit=crop&w=800&q=85',
     srcSet: 'https://images.unsplash.com/photo-1546483875-ad9014c88eba?auto=format&fit=crop&w=500&q=80 500w, https://images.unsplash.com/photo-1546483875-ad9014c88eba?auto=format&fit=crop&w=900&q=85 900w, https://images.unsplash.com/photo-1546483875-ad9014c88eba?auto=format&fit=crop&w=1200&q=85 1200w',
-    alt: 'Athlete stretching after a workout',
+    alt: 'Athlete stretching after strength training',
     className: 'moment-card',
   },
 ]
