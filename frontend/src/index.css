@@ -330,3 +330,6 @@ body:has(.workspace-sidebar) { background:var(--app-bg); }
 
 /* A clear chartreuse focus ring keeps public navigation usable without a mouse. */
 .peak-site a:focus-visible,.peak-nav a:focus-visible,.peak-nav button:focus-visible { outline:2px solid var(--pf-green); outline-offset:4px; border-radius:3px; }
+
+/* Leave breathing room below the sticky navigation when following the hero scroll cue. */
+#training { scroll-margin-top:88px; }
