@@ -16,21 +16,24 @@ const trainingMoments = [
   {
     index: '01 / TRAIN WITH PURPOSE',
     title: 'Make every session count.',
-    image: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=1200&q=85',
+    image: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=900&q=85',
+    srcSet: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=600&q=80 600w, https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=1000&q=85 1000w, https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=1400&q=85 1400w',
     alt: 'Strength training area with barbells and gym equipment',
     className: 'moment-card moment-card-wide',
   },
   {
     index: '02 / FIND YOUR RHYTHM',
     title: 'Build a routine that lasts.',
-    image: 'https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&w=1000&q=85',
+    image: 'https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&w=800&q=85',
+    srcSet: 'https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&w=500&q=80 500w, https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&w=900&q=85 900w, https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&w=1200&q=85 1200w',
     alt: 'Athlete focused on a strength training session',
     className: 'moment-card',
   },
   {
     index: '03 / RECOVER WITH INTENT',
     title: 'Progress lives between reps.',
-    image: 'https://images.unsplash.com/photo-1546483875-ad9014c88eba?auto=format&fit=crop&w=1000&q=85',
+    image: 'https://images.unsplash.com/photo-1546483875-ad9014c88eba?auto=format&fit=crop&w=800&q=85',
+    srcSet: 'https://images.unsplash.com/photo-1546483875-ad9014c88eba?auto=format&fit=crop&w=500&q=80 500w, https://images.unsplash.com/photo-1546483875-ad9014c88eba?auto=format&fit=crop&w=900&q=85 900w, https://images.unsplash.com/photo-1546483875-ad9014c88eba?auto=format&fit=crop&w=1200&q=85 1200w',
     alt: 'Athlete stretching after a workout',
     className: 'moment-card',
   },
@@ -56,7 +59,7 @@ export default function Landing() {
       <a className="skip-link" href="#training">Skip to training stories</a>
       <section className="peak-hero">
         <div className="hero-photo" aria-hidden="true">
-          <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=2200&q=90" alt="" fetchPriority="high" />
+          <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=1600&q=88" srcSet="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=1200&q=85 1200w, https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=1800&q=88 1800w, https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=2400&q=88 2400w" sizes="100vw" alt="" fetchPriority="high" />
         </div>
         <div className="hero-noise" />
         <div className="hero-grid" />
@@ -91,7 +94,7 @@ export default function Landing() {
         <div className="moments-grid">
           {trainingMoments.map((moment) => (
             <article className={moment.className} data-reveal key={moment.index}>
-              <img src={moment.image} alt={moment.alt} loading="lazy" />
+              <img src={moment.image} srcSet={moment.srcSet} sizes="(min-width: 1000px) 30vw, (min-width: 600px) 48vw, 100vw" alt={moment.alt} loading="lazy" />
               <div className="moment-shade" />
               <p className="moment-index">{moment.index}</p>
               <h3>{moment.title}</h3>
