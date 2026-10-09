@@ -59,7 +59,7 @@ export default function Landing() {
       <a className="skip-link" href="#training">Skip to training stories</a>
       <section className="peak-hero">
         <div className="hero-photo" aria-hidden="true">
-          <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=1600&q=88" srcSet="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=1200&q=85 1200w, https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=1800&q=88 1800w, https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=2400&q=88 2400w" sizes="100vw" alt="" decoding="async" fetchPriority="high" />
+          <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=1600&q=88" srcSet="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=1200&q=85 1200w, https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=1800&q=88 1800w, https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=2400&q=88 2400w" sizes="100vw" alt="" decoding="async" fetchPriority="high" onError={(event) => { event.currentTarget.style.display = "none" }} />
         </div>
         <div className="hero-noise" />
         <div className="hero-grid" />
@@ -94,7 +94,7 @@ export default function Landing() {
         <div className="moments-grid">
           {trainingMoments.map((moment) => (
             <article className={moment.className} data-reveal key={moment.index}>
-              <img src={moment.image} srcSet={moment.srcSet} sizes="(min-width: 1000px) 30vw, (min-width: 600px) 48vw, 100vw" alt={moment.alt} loading="lazy" decoding="async" />
+              <img src={moment.image} srcSet={moment.srcSet} sizes="(min-width: 1000px) 30vw, (min-width: 600px) 48vw, 100vw" alt={moment.alt} loading="lazy" decoding="async" onError={(event) => { event.currentTarget.style.display = "none" }} />
               <div className="moment-shade" />
               <p className="moment-index">{moment.index}</p>
               <h3>{moment.title}</h3>
