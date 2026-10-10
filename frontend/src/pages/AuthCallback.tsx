@@ -11,7 +11,6 @@ async function exchangeOAuthCode() {
   const { data, error } = await supabase.auth.exchangeCodeForSession(code)
   if (error) throw error
   if (!data.session) throw new Error('Could not complete Google sign-in. Please try again.')
-  await supabase.auth.signOut()
   return data.session
 }
 
