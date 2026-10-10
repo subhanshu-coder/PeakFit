@@ -351,3 +351,5 @@ body:has(.workspace-sidebar) { background:var(--app-bg); }
 .moment-index { width:fit-content; padding:7px 9px; border:1px solid rgba(229,244,218,.16); background:rgba(8,11,8,.52); }
 
 .moment-card-wide img { object-position:center 46%; }
+
+@media(max-width:420px){.moment-card,.moment-card-wide{min-height:290px;padding:18px}.moment-card h3{max-width:240px}}
