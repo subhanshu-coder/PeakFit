@@ -340,3 +340,5 @@ body:has(.workspace-sidebar) { background:var(--app-bg); }
 .hero-photo-credit { padding:8px 10px; border:1px solid rgba(229,244,218,.12); background:rgba(8,11,8,.48); backdrop-filter:blur(8px); }
 
 .hero-foot .peak-cta-link:active { transform:translateY(0) scale(.98); }
+
+.hero-note { padding:12px 14px; border-left:1px solid rgba(186,255,59,.38); background:rgba(8,11,8,.42); backdrop-filter:blur(7px); }
