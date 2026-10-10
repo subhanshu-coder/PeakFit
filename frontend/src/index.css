@@ -358,3 +358,6 @@ body:has(.workspace-sidebar) { background:var(--app-bg); }
 
 .footer-login { transition:color .2s ease; }
 .footer-login:hover { color:var(--pf-green); }
+
+.dashboard-hero { transition:border-color .25s ease,box-shadow .25s ease; }
+.dashboard-hero:hover { border-color:rgba(157,170,255,.38); box-shadow:0 22px 60px rgba(0,0,0,.2); }
