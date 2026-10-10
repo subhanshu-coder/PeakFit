@@ -338,3 +338,5 @@ body:has(.workspace-sidebar) { background:var(--app-bg); }
 .hero-scroll:hover { color:var(--pf-green); transform:translateY(-2px); }
 
 .hero-photo-credit { padding:8px 10px; border:1px solid rgba(229,244,218,.12); background:rgba(8,11,8,.48); backdrop-filter:blur(8px); }
+
+.hero-foot .peak-cta-link:active { transform:translateY(0) scale(.98); }
