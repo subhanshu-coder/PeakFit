@@ -333,3 +333,6 @@ body:has(.workspace-sidebar) { background:var(--app-bg); }
 
 /* Leave breathing room below the sticky navigation when following the hero scroll cue. */
 #training { scroll-margin-top:88px; }
+
+.hero-scroll { transition:color .2s ease,transform .2s ease; }
+.hero-scroll:hover { color:var(--pf-green); transform:translateY(-2px); }
