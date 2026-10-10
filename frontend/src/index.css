@@ -361,3 +361,5 @@ body:has(.workspace-sidebar) { background:var(--app-bg); }
 
 .dashboard-hero { transition:border-color .25s ease,box-shadow .25s ease; }
 .dashboard-hero:hover { border-color:rgba(157,170,255,.38); box-shadow:0 22px 60px rgba(0,0,0,.2); }
+
+.dashboard-hero-action:focus-visible { outline:2px solid var(--app-lime); outline-offset:4px; }
