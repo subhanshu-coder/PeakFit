@@ -366,3 +366,5 @@ body:has(.workspace-sidebar) { background:var(--app-bg); }
 
 .workspace-plan-card { transition:border-color .2s ease,transform .2s ease; }
 .workspace-plan-card:hover { border-color:rgba(157,170,255,.4); transform:translateY(-2px); }
+
+@media(prefers-reduced-motion:reduce){.hero-scroll,.moment-card,.workspace-plan-card,.dashboard-hero{transition:none}.moment-card:hover,.workspace-plan-card:hover{transform:none}}
