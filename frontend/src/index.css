@@ -344,3 +344,6 @@ body:has(.workspace-sidebar) { background:var(--app-bg); }
 .hero-note { padding:12px 14px; border-left:1px solid rgba(186,255,59,.38); background:rgba(8,11,8,.42); backdrop-filter:blur(7px); }
 
 .moment-card { border-radius:8px; }
+
+.moment-card { transition:border-color .25s ease,transform .25s ease; }
+.moment-card:hover { border-color:rgba(186,255,59,.34); }
