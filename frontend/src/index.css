@@ -355,3 +355,6 @@ body:has(.workspace-sidebar) { background:var(--app-bg); }
 @media(max-width:420px){.moment-card,.moment-card-wide{min-height:290px;padding:18px}.moment-card h3{max-width:240px}}
 
 .peak-footer { border-top:1px solid var(--pf-line); }
+
+.footer-login { transition:color .2s ease; }
+.footer-login:hover { color:var(--pf-green); }
