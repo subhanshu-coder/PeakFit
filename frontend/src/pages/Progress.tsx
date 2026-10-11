@@ -179,7 +179,7 @@ export default function Progress() {
             <div className="mt-6 h-72">
               {chartData.length > 0 ? (
                 <ResponsiveContainer width="100%" height="100%">
-                  <LineChart data={chartData}>
+                  <LineChart data={chartData} accessibilityLayer>
                     <CartesianGrid stroke="#2A2A33" strokeDasharray="3 3" />
                     <XAxis dataKey="date" stroke="#8B8B96" fontSize={11} />
                     <YAxis stroke="#8B8B96" fontSize={11} />
