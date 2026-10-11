@@ -43,7 +43,7 @@ export default function App() {
       <CustomCursor />
       <Navbar />
       <main className={user ? 'app-main' : undefined}>
-      <Suspense fallback={<div className="route-loading"><span className="status-dot" /> PREPARING YOUR TRAINING SPACE</div>}>
+      <Suspense fallback={<div role="status" aria-live="polite" className="route-loading"><span className="status-dot" /> PREPARING YOUR TRAINING SPACE</div>}>
       <Routes>
         <Route path="/" element={isOAuthCallback ? <AuthCallback /> : user ? <Navigate to="/dashboard" replace /> : <Landing />} />
         <Route path="/login" element={user ? <Navigate to="/dashboard" replace /> : <Login />} />
