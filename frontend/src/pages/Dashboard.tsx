@@ -102,7 +102,7 @@ export default function Dashboard() {
       </div>
 
       {loading ? (
-        <p className="mt-10 text-muted">Loading your program…</p>
+        <p role="status" aria-live="polite" className="mt-10 text-muted">Loading your program…</p>
       ) : !plan ? (
         <div className="mt-8">
           <p className="mb-6 max-w-xl text-muted">
