@@ -26,7 +26,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       <button
         ref={ref}
         data-cursor="click"
-        className={`inline-flex items-center justify-center gap-2 rounded-[3px] font-mono text-[10px] font-medium uppercase tracking-[0.12em] transition-all duration-200 disabled:pointer-events-none disabled:opacity-40 ${variants[variant]} ${sizes[size]} ${className}`}
+        className={`inline-flex items-center justify-center gap-2 rounded-[3px] font-mono text-[10px] font-medium uppercase tracking-[0.12em] transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-volt focus-visible:ring-offset-2 focus-visible:ring-offset-ink disabled:pointer-events-none disabled:opacity-40 ${variants[variant]} ${sizes[size]} ${className}`}
         {...props}
       >
         {children}
