@@ -51,7 +51,7 @@ export default function Exercises() {
           ))}
         </Select>
       </div>
-      <span className="exercise-count">{exercises.filter((ex) => `${ex.name} ${ex.muscle} ${ex.equipment}`.toLowerCase().includes(query.toLowerCase())).length} MOVEMENTS</span>
+      <span role="status" aria-live="polite" className="exercise-count">{exercises.filter((ex) => `${ex.name} ${ex.muscle} ${ex.equipment}`.toLowerCase().includes(query.toLowerCase())).length} MOVEMENTS</span>
       </div>
 
       <div className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
