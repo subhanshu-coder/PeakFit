@@ -26,7 +26,7 @@ export default function Navbar() {
             <span className="font-display text-[19px] font-bold tracking-[-0.06em]">PEAK<span className="text-volt">FIT</span><sup className="ml-0.5 text-[8px] text-muted">®</sup></span>
           </Link>
           {!user && <span className="hidden font-mono text-[9px] tracking-[0.18em] text-muted lg:block">TRAINING, DESIGNED AROUND YOU</span>}
-          {user && <nav className="workspace-links hidden items-center gap-8 md:flex">{LINKS.map((l) => <NavLink key={l.to} to={l.to} className={({ isActive }) => `font-mono text-[10px] uppercase tracking-[0.16em] transition-colors hover:text-bone ${isActive ? 'text-volt' : 'text-muted'}`}>{l.label}</NavLink>)}</nav>}
+          {user && <nav aria-label="Primary navigation" className="workspace-links hidden items-center gap-8 md:flex">{LINKS.map((l) => <NavLink key={l.to} to={l.to} className={({ isActive }) => `font-mono text-[10px] uppercase tracking-[0.16em] transition-colors hover:text-bone ${isActive ? 'text-volt' : 'text-muted'}`}>{l.label}</NavLink>)}</nav>}
           <div className="flex items-center gap-3">
             {user ? <>
               <Button variant="ghost" size="sm" className="md:hidden" aria-label={menuOpen ? 'Close navigation menu' : 'Open navigation menu'} onClick={() => setMenuOpen(!menuOpen)}>{menuOpen ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}</Button>
