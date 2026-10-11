@@ -133,6 +133,7 @@ export default function Progress() {
                   {sets.length > 1 && (
                     <button
                       type="button"
+                      aria-label={`Remove set ${i + 1}`}
                       onClick={() => setSets((prev) => prev.filter((_, idx) => idx !== i))}
                       className="text-muted hover:text-red-400"
                     >
