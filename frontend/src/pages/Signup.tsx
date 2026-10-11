@@ -58,10 +58,12 @@ export default function Signup() {
             <span className="h-px flex-1 bg-line" />
           </div>
           <form onSubmit={onSubmit} className="flex flex-col gap-4">
-            <Input label="Name" value={name} onChange={(e) => setName(e.target.value)} required />
+            <Input label="Name" id="signup-name" autoComplete="name" value={name} onChange={(e) => setName(e.target.value)} required />
             <Input
               label="Email"
               type="email"
+              id="signup-email"
+              autoComplete="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
@@ -69,6 +71,8 @@ export default function Signup() {
             <Input
               label="Password"
               type="password"
+              id="signup-password"
+              autoComplete="new-password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               minLength={8}
