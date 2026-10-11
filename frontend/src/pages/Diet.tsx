@@ -112,7 +112,7 @@ export default function Diet() {
               <option value="maintain">Maintain</option>
               <option value="bulk">Bulk — build muscle</option>
             </Select>
-            {error && <p className="text-sm text-red-400">{error}</p>}
+            {error && <p role="alert" className="text-sm text-red-400">{error}</p>}
             <Button type="submit" disabled={loading} className="mt-2 w-full">
               {loading ? 'Calculating…' : 'Calculate My Plan'}
             </Button>
