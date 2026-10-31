@@ -108,6 +108,7 @@ export default function Progress() {
             </Select>
             <Input
               label="Exercise"
+              maxLength={80}
               placeholder="e.g. Barbell Bench Press"
               value={exerciseName}
               onChange={(e) => setExerciseName(e.target.value)}
