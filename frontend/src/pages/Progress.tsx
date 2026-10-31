@@ -122,6 +122,9 @@ export default function Progress() {
                   <Input
                     placeholder="Reps"
                     type="number"
+                    min={1}
+                    max={100}
+                    step={1}
                     value={s.reps}
                     onChange={(e) => updateSet(i, 'reps', e.target.value)}
                   />
