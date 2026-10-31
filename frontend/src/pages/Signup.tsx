@@ -78,7 +78,7 @@ export default function Signup() {
               minLength={8}
               required
             />
-            {error && <p className="text-sm text-red-400">{error}</p>}
+            {error && <p role="alert" className="text-sm text-red-400">{error}</p>}
             {notice && <p role="status" className="text-sm text-volt">{notice}</p>}
             <Button type="submit" disabled={loading} className="mt-2 w-full">
               {loading ? 'Creating account…' : 'Create Account'}
