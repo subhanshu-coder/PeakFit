@@ -92,6 +92,7 @@ export default function Diet() {
               label="Age"
               type="number"
               min={14}
+              max={100}
               value={form.age}
               onChange={(e) => update('age', e.target.value)}
               required
