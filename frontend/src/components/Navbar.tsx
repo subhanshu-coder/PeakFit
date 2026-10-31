@@ -34,7 +34,7 @@ export default function Navbar() {
             </> : <><Button variant="ghost" size="sm" onClick={() => navigate('/login')}>Log In</Button><Button size="sm" onClick={() => navigate('/signup')}>Get Started</Button></>}
           </div>
         </div>
-        {user && menuOpen && <nav className="workspace-mobile-nav border-t border-line/60 px-6 py-3 md:hidden">{LINKS.map((l) => <NavLink key={l.to} to={l.to} onClick={() => setMenuOpen(false)} className={({isActive}) => `block py-3 font-mono text-xs uppercase tracking-wider ${isActive ? 'text-volt' : 'text-muted'}`}><l.icon className="mr-2 inline h-4 w-4" />{l.label}</NavLink>)}</nav>}
+        {user && menuOpen && <nav aria-label="Mobile workspace navigation" className="workspace-mobile-nav border-t border-line/60 px-6 py-3 md:hidden">{LINKS.map((l) => <NavLink key={l.to} to={l.to} onClick={() => setMenuOpen(false)} className={({isActive}) => `block py-3 font-mono text-xs uppercase tracking-wider ${isActive ? 'text-volt' : 'text-muted'}`}><l.icon className="mr-2 inline h-4 w-4" />{l.label}</NavLink>)}</nav>}
       </header>
       {user && <aside className="workspace-sidebar" aria-label="Training workspace navigation">
         <Link to="/dashboard" className="workspace-side-brand"><span className="brand-symbol"><Dumbbell className="h-4 w-4" /></span><span>PEAK<span>FIT</span><sup>®</sup></span><small>PERFORMANCE OS</small></Link>
