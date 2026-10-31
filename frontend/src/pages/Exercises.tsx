@@ -40,7 +40,7 @@ export default function Exercises() {
       </p>
 
       <div className="exercise-toolbar mt-8">
-      <label className="exercise-search"><Search size={17} /><input aria-label="Search exercises" placeholder="Find a movement…" value={query} onChange={(e) => setQuery(e.target.value)} /></label>
+      <label className="exercise-search"><Search size={17} /><input type="search" aria-label="Search exercises" placeholder="Find a movement…" value={query} onChange={(e) => setQuery(e.target.value)} /></label>
       <div className="max-w-xs">
         <Select label="Filter by muscle" value={muscle} onChange={(e) => setMuscle(e.target.value)}>
           <option value="">All muscles</option>
