@@ -131,6 +131,9 @@ export default function Progress() {
                   <Input
                     placeholder="Weight (kg)"
                     type="number"
+                    min={0}
+                    max={500}
+                    step={0.5}
                     value={s.weight}
                     onChange={(e) => updateSet(i, 'weight', e.target.value)}
                   />
