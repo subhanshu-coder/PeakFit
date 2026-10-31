@@ -113,7 +113,7 @@ export default function Landing() {
 
       <section className="closing-section" data-reveal><div className="closing-glow" /><p className="eyebrow"><Sparkles size={13} /> YOUR NEXT REP STARTS HERE</p><h2>THE VIEW<br />IS BETTER <em>UP HERE.</em></h2><div className="closing-bottom"><p>Your next chapter is one good session away.</p><Link to="/signup" className="peak-cta-link">Build your program <ArrowUpRight size={17} /></Link></div><span className="closing-stamp">PEAKFIT / EST. FOR THE CLIMB</span></section>
 
-      <footer className="peak-footer"><Link to="/" className="footer-brand">PEAK<span>FIT</span><sup>®</sup></Link><span>MADE FOR THE WORK.</span><Link to="/login" className="footer-login">MEMBER LOGIN <ArrowUpRight size={13} /></Link></footer>
+      <footer aria-label="Site footer" className="peak-footer"><Link to="/" className="footer-brand">PEAK<span>FIT</span><sup>®</sup></Link><span>MADE FOR THE WORK.</span><Link to="/login" className="footer-login">MEMBER LOGIN <ArrowUpRight size={13} /></Link></footer>
     </div>
   )
 }
