@@ -29,7 +29,7 @@ export default function Navbar() {
           {user && <nav aria-label="Primary navigation" className="workspace-links hidden items-center gap-8 md:flex">{LINKS.map((l) => <NavLink key={l.to} to={l.to} className={({ isActive }) => `font-mono text-[10px] uppercase tracking-[0.16em] transition-colors hover:text-bone ${isActive ? 'text-volt' : 'text-muted'}`}>{l.label}</NavLink>)}</nav>}
           <div className="flex items-center gap-3">
             {user ? <>
-              <Button variant="ghost" size="sm" className="md:hidden" aria-label={menuOpen ? 'Close navigation menu' : 'Open navigation menu'} onClick={() => setMenuOpen(!menuOpen)}>{menuOpen ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}</Button>
+              <Button variant="ghost" size="sm" className="md:hidden" aria-label={menuOpen ? 'Close navigation menu' : 'Open navigation menu'} aria-expanded={menuOpen} onClick={() => setMenuOpen(!menuOpen)}>{menuOpen ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}</Button>
               <Button variant="outline" size="sm" className="workspace-signout" onClick={() => { logout(); navigate('/') }}>Log Out</Button>
             </> : <><Button variant="ghost" size="sm" onClick={() => navigate('/login')}>Log In</Button><Button size="sm" onClick={() => navigate('/signup')}>Get Started</Button></>}
           </div>
