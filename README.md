@@ -51,3 +51,6 @@ For local auth testing, add the local Vite origin (usually `http://localhost:517
 
 
 Set `VITE_API_URL` to the API origin plus `/api` for production builds; the frontend does not read backend-only environment variables.
+
+
+After changing Vercel environment variables, trigger a new production deployment so the API runtime receives the updated values.
