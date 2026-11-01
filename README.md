@@ -78,3 +78,6 @@ The local frontend and API run as separate development processes; check each ter
  
 
 Google OAuth also requires the provider's authorized redirect URI to match the callback URL shown in Supabase's provider settings.
+ 
+
+After changing auth redirect settings, start a fresh sign-in attempt so the browser receives a new OAuth authorization request.
