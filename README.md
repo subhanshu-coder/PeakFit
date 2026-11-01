@@ -45,3 +45,6 @@ OAuth returns to the app's configured site URL; confirm that URL matches the dep
 
 
 If signup does not immediately create a session, check whether email confirmation is enabled in Supabase Auth and complete the confirmation link before signing in.
+
+
+For local auth testing, add the local Vite origin (usually `http://localhost:5173`) to Supabase Auth's allowed redirect URLs.
