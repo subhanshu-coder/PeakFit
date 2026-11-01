@@ -89,3 +89,8 @@ Google OAuth also requires the provider's authorized redirect URI to match the c
  
 
 After changing auth redirect settings, start a fresh sign-in attempt so the browser receives a new OAuth authorization request.
+
+
+## Deployment check
+
+After publishing, open the site URL and confirm the latest GitHub Actions run succeeded. For API-backed pages, verify that the configured API URL is reachable before troubleshooting sign-in or saved data.
