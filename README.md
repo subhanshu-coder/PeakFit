@@ -41,6 +41,10 @@ See `backend/.env.example` and `frontend/.env.example`. Keep `.env` files out of
 To enable Google sign-in, configure Google as a provider in the Supabase dashboard and add the deployed site URLs to Supabase Auth's allowed redirect URLs. The Google OAuth client secret belongs in Supabase's provider settings, not in the frontend.
 
 
+## Troubleshooting
+
+### Sign-in redirects
+
 OAuth returns to the app's configured site URL; confirm that URL matches the deployed origin exactly, including the GitHub Pages `/PeakFit/` base path when applicable.
 
 
