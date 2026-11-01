@@ -66,3 +66,6 @@ The backend exposes `/api/health` for a quick availability check on the deployed
  
 
 Workout and nutrition records are scoped to the authenticated Supabase user and protected by database row-level security.
+ 
+
+Apply SQL migrations in filename timestamp order when provisioning a fresh database.
