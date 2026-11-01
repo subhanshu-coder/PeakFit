@@ -57,3 +57,6 @@ After changing Vercel environment variables, trigger a new production deployment
 
 
 GitHub Pages deployments are produced by the Actions workflow; check its run in the Actions tab if the published site does not reflect the latest commit.
+
+
+The GitHub Pages build uses the repository subpath `/PeakFit/`; use the Vercel deployment for a root-domain URL.
