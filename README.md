@@ -72,3 +72,6 @@ Apply SQL migrations in filename timestamp order when provisioning a fresh datab
  
 
 A Supabase publishable key is designed for client use when row-level security is enabled; never expose a service-role key in browser code.
+ 
+
+The local frontend and API run as separate development processes; check each terminal for its startup URL and port.
