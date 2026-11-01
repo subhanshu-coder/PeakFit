@@ -60,3 +60,6 @@ GitHub Pages deployments are produced by the Actions workflow; check its run in 
 
 
 The GitHub Pages build uses the repository subpath `/PeakFit/`; use the Vercel deployment for a root-domain URL.
+ 
+
+The backend exposes `/api/health` for a quick availability check on the deployed API.
