@@ -69,3 +69,6 @@ Workout and nutrition records are scoped to the authenticated Supabase user and 
  
 
 Apply SQL migrations in filename timestamp order when provisioning a fresh database.
+ 
+
+A Supabase publishable key is designed for client use when row-level security is enabled; never expose a service-role key in browser code.
