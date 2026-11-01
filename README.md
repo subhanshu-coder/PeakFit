@@ -35,3 +35,7 @@ The API accepts Supabase access tokens, verifies them with Supabase Auth, and us
 ## Environment variables
 
 See `backend/.env.example` and `frontend/.env.example`. Keep `.env` files out of version control. The API requires `SUPABASE_URL` and `SUPABASE_PUBLISHABLE_KEY`; it does not need a service-role key.
+
+## Google sign-in
+
+To enable Google sign-in, configure Google as a provider in the Supabase dashboard and add the deployed site URLs to Supabase Auth's allowed redirect URLs. The Google OAuth client secret belongs in Supabase's provider settings, not in the frontend.
