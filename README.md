@@ -63,3 +63,6 @@ The GitHub Pages build uses the repository subpath `/PeakFit/`; use the Vercel d
  
 
 The backend exposes `/api/health` for a quick availability check on the deployed API.
+ 
+
+Workout and nutrition records are scoped to the authenticated Supabase user and protected by database row-level security.
