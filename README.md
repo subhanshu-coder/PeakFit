@@ -48,3 +48,6 @@ If signup does not immediately create a session, check whether email confirmatio
 
 
 For local auth testing, add the local Vite origin (usually `http://localhost:5173`) to Supabase Auth's allowed redirect URLs.
+
+
+Set `VITE_API_URL` to the API origin plus `/api` for production builds; the frontend does not read backend-only environment variables.
