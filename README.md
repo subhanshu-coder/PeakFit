@@ -75,3 +75,6 @@ A Supabase publishable key is designed for client use when row-level security is
  
 
 The local frontend and API run as separate development processes; check each terminal for its startup URL and port.
+ 
+
+Google OAuth also requires the provider's authorized redirect URI to match the callback URL shown in Supabase's provider settings.
