@@ -42,3 +42,6 @@ To enable Google sign-in, configure Google as a provider in the Supabase dashboa
 
 
 OAuth returns to the app's configured site URL; confirm that URL matches the deployed origin exactly, including the GitHub Pages `/PeakFit/` base path when applicable.
+
+
+If signup does not immediately create a session, check whether email confirmation is enabled in Supabase Auth and complete the confirmation link before signing in.
