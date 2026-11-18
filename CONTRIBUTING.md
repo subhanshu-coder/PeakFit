@@ -77,3 +77,7 @@ Keep animation purposeful and respect the reduced-motion preference for nonessen
 ## 19. Formatting
 
 Match the existing TypeScript, JavaScript, and CSS style in the touched files.
+
+## 20. Local verification
+
+Before opening a pull request, run the relevant frontend or backend checks for the changed area and report any failures.
