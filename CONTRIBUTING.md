@@ -17,3 +17,7 @@ Use a supported Node.js LTS release and the npm version recorded with the projec
 ## 4. Frontend setup
 
 Install dependencies in `frontend/` and run the Vite development server from that directory.
+
+## 5. Backend setup
+
+Install dependencies in `backend/` and run the API development server in a separate terminal.
