@@ -9,3 +9,7 @@ Contributions should keep PeakFit's React frontend, Express API, and Supabase da
 ## 2. Branches
 
 Create a short-lived branch from the latest `main` for each focused change.
+
+## 3. Runtime
+
+Use a supported Node.js LTS release and the npm version recorded with the project.
