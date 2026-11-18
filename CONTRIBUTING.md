@@ -33,3 +33,7 @@ Never commit Supabase service-role keys, OAuth client secrets, access tokens, or
 ## 8. Database changes
 
 Add schema changes as timestamped SQL migrations under `supabase/migrations/`.
+
+## 9. Row-level security
+
+Enable and verify row-level security for user-owned data; policies should scope rows to the authenticated user.
