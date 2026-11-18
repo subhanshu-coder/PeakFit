@@ -55,6 +55,7 @@ export default function Login() {
             <Input
               label="Email"
               type="email"
+              inputMode="email"
               id="login-email"
               autoComplete="email"
               autoCapitalize="none"
