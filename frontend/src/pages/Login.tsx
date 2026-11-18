@@ -74,7 +74,7 @@ export default function Login() {
               required
             />
             {error && <p role="alert" className="text-sm text-red-400">{error}</p>}
-            <Button type="submit" disabled={loading} className="mt-2 w-full">
+            <Button type="submit" disabled={loading} aria-busy={loading} className="mt-2 w-full">
               {loading ? 'Logging in…' : 'Log In'}
             </Button>
           </form>
