@@ -76,6 +76,7 @@ export default function Signup() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               minLength={8}
+              maxLength={128}
               required
             />
             {error && <p role="alert" className="text-sm text-red-400">{error}</p>}
