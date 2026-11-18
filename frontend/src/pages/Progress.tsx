@@ -125,6 +125,7 @@ export default function Progress() {
                     min={1}
                     max={100}
                     step={1}
+                    required
                     value={s.reps}
                     onChange={(e) => updateSet(i, 'reps', e.target.value)}
                   />
