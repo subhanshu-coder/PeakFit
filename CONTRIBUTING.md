@@ -5,3 +5,7 @@ Thanks for helping improve PeakFit. Use these steps to prepare and review change
 ## 1. Scope
 
 Contributions should keep PeakFit's React frontend, Express API, and Supabase data layer working together.
+
+## 2. Branches
+
+Create a short-lived branch from the latest `main` for each focused change.
