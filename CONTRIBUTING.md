@@ -73,3 +73,7 @@ Check changed screens at narrow and wide viewport sizes; keep primary actions re
 ## 18. Motion
 
 Keep animation purposeful and respect the reduced-motion preference for nonessential effects.
+
+## 19. Formatting
+
+Match the existing TypeScript, JavaScript, and CSS style in the touched files.
