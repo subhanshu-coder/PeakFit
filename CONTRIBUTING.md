@@ -37,3 +37,7 @@ Add schema changes as timestamped SQL migrations under `supabase/migrations/`.
 ## 9. Row-level security
 
 Enable and verify row-level security for user-owned data; policies should scope rows to the authenticated user.
+
+## 10. Supabase keys
+
+Use the publishable key in client-facing configuration; privileged keys must stay server-side and should not be needed by normal API requests.
