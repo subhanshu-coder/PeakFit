@@ -84,7 +84,7 @@ export default function SplitBuilder() {
                 ) : (
                   <Save className="h-4 w-4" />
                 )}
-                Save Day
+                {savingDay === d.day ? 'Saving…' : 'Save Day'}
               </Button>
             </div>
 
