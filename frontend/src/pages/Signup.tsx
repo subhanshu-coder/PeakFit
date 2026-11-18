@@ -81,7 +81,7 @@ export default function Signup() {
             />
             {error && <p role="alert" className="text-sm text-red-400">{error}</p>}
             {notice && <p role="status" className="text-sm text-volt">{notice}</p>}
-            <Button type="submit" disabled={loading} className="mt-2 w-full">
+            <Button type="submit" disabled={loading} aria-busy={loading} className="mt-2 w-full">
               {loading ? 'Creating account…' : 'Create Account'}
             </Button>
           </form>
