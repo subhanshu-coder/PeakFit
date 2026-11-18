@@ -45,3 +45,7 @@ Use the publishable key in client-facing configuration; privileged keys must sta
 ## 11. Authentication redirects
 
 When changing auth flows, account for local, Vercel, and GitHub Pages callback URLs.
+
+## 12. API routes
+
+Keep API route handlers under `backend/src/routes/` and mount new route groups in the Express app.
