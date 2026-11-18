@@ -21,3 +21,7 @@ Install dependencies in `frontend/` and run the Vite development server from tha
 ## 5. Backend setup
 
 Install dependencies in `backend/` and run the API development server in a separate terminal.
+
+## 6. Environment files
+
+Copy each `.env.example` to a local `.env`; keep local environment files out of commits.
