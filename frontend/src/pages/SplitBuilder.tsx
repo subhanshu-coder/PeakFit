@@ -78,7 +78,7 @@ export default function SplitBuilder() {
                 <span className="font-mono text-xs uppercase tracking-wider text-muted">{d.day}</span>
                 <h3 className="font-display text-xl tracking-wide">{d.label}</h3>
               </div>
-              <Button size="sm" onClick={() => saveDay(d.day)} disabled={savingDay === d.day}>
+              <Button size="sm" onClick={() => saveDay(d.day)} disabled={savingDay === d.day} aria-busy={savingDay === d.day}>
                 {savingDay === d.day ? (
                   <Loader2 className="h-4 w-4 animate-spin" />
                 ) : (
