@@ -13,3 +13,7 @@ Create a short-lived branch from the latest `main` for each focused change.
 ## 3. Runtime
 
 Use a supported Node.js LTS release and the npm version recorded with the project.
+
+## 4. Frontend setup
+
+Install dependencies in `frontend/` and run the Vite development server from that directory.
