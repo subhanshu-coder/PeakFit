@@ -25,3 +25,7 @@ Install dependencies in `backend/` and run the API development server in a separ
 ## 6. Environment files
 
 Copy each `.env.example` to a local `.env`; keep local environment files out of commits.
+
+## 7. Secret handling
+
+Never commit Supabase service-role keys, OAuth client secrets, access tokens, or production credentials.
