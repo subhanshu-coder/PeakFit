@@ -85,6 +85,7 @@ export default function Diet() {
                 label="Height (cm)"
                 type="number"
                 min={100}
+                max={250}
                 value={form.heightCm}
                 onChange={(e) => update('heightCm', e.target.value)}
                 required
