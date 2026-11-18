@@ -69,3 +69,7 @@ Use semantic elements, associated labels, keyboard support, and visible focus st
 ## 17. Responsive layouts
 
 Check changed screens at narrow and wide viewport sizes; keep primary actions reachable on mobile.
+
+## 18. Motion
+
+Keep animation purposeful and respect the reduced-motion preference for nonessential effects.
