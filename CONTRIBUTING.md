@@ -49,3 +49,7 @@ When changing auth flows, account for local, Vercel, and GitHub Pages callback U
 ## 12. API routes
 
 Keep API route handlers under `backend/src/routes/` and mount new route groups in the Express app.
+
+## 13. Input validation
+
+Validate request values at the API boundary and return a clear client error for invalid input.
