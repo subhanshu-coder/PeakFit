@@ -41,3 +41,7 @@ Enable and verify row-level security for user-owned data; policies should scope 
 ## 10. Supabase keys
 
 Use the publishable key in client-facing configuration; privileged keys must stay server-side and should not be needed by normal API requests.
+
+## 11. Authentication redirects
+
+When changing auth flows, account for local, Vercel, and GitHub Pages callback URLs.
