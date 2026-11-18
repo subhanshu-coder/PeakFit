@@ -121,7 +121,7 @@ export default function Dashboard() {
                   disabled={generating}
                   onClick={() => generate(t.key)}
                 >
-                  Use This Split
+                  {generating ? 'Building your split…' : 'Use This Split'}
                 </Button>
               </Card>
             ))}
