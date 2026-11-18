@@ -53,3 +53,7 @@ Keep API route handlers under `backend/src/routes/` and mount new route groups i
 ## 13. Input validation
 
 Validate request values at the API boundary and return a clear client error for invalid input.
+
+## 14. Error responses
+
+Avoid returning stack traces, secrets, or database internals in API error responses.
