@@ -6,6 +6,7 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
 
 export const Input = forwardRef<HTMLInputElement, InputProps>(
   ({ label, className = '', id, ...props }, ref) => {
+    const inputId = id ?? useId()
     return (
       <div className="flex flex-col gap-2">
         {label && (
@@ -15,7 +16,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
         )}
         <input
           ref={ref}
-          id={id}
+          id={inputId}
           className={`h-12 rounded-[3px] border border-line bg-[#0c100c] px-4 text-sm text-bone outline-none transition-colors placeholder:text-muted/60 focus:border-volt focus-visible:ring-2 focus-visible:ring-volt/70 ${className}`}
           {...props}
         />
@@ -32,6 +33,7 @@ export function Select({
   children,
   ...props
 }: React.SelectHTMLAttributes<HTMLSelectElement> & { label?: string }) {
+  const selectId = id ?? useId()
   return (
     <div className="flex flex-col gap-2">
       {label && (
@@ -40,7 +42,7 @@ export function Select({
         </label>
       )}
       <select
-        id={id}
+        id={selectId}
         className={`h-12 rounded-[3px] border border-line bg-[#0c100c] px-4 text-sm text-bone outline-none transition-colors focus:border-volt focus-visible:ring-2 focus-visible:ring-volt/70 ${className}`}
         {...props}
       >
