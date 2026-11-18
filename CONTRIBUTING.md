@@ -57,3 +57,7 @@ Validate request values at the API boundary and return a clear client error for 
 ## 14. Error responses
 
 Avoid returning stack traces, secrets, or database internals in API error responses.
+
+## 15. Frontend components
+
+Prefer the shared UI components in `frontend/src/components/ui/` for consistent controls.
