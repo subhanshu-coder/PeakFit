@@ -57,6 +57,8 @@ export default function Login() {
               type="email"
               id="login-email"
               autoComplete="email"
+              autoCapitalize="none"
+              autoCorrect="off"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
