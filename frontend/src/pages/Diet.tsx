@@ -75,6 +75,8 @@ export default function Diet() {
                 label="Weight (kg)"
                 type="number"
                 min={30}
+                max={350}
+                step={0.1}
                 value={form.weightKg}
                 onChange={(e) => update('weightKg', e.target.value)}
                 required
