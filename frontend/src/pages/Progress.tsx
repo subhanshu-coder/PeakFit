@@ -156,6 +156,7 @@ export default function Progress() {
                 variant="outline"
                 size="sm"
                 onClick={() => setSets((prev) => [...prev, { reps: '', weight: '' }])}
+                disabled={sets.length >= 12}
               >
                 <Plus className="h-4 w-4" />
                 Add Set
