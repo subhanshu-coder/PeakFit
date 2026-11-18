@@ -29,3 +29,7 @@ Copy each `.env.example` to a local `.env`; keep local environment files out of 
 ## 7. Secret handling
 
 Never commit Supabase service-role keys, OAuth client secrets, access tokens, or production credentials.
+
+## 8. Database changes
+
+Add schema changes as timestamped SQL migrations under `supabase/migrations/`.
