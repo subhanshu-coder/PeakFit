@@ -65,3 +65,7 @@ Prefer the shared UI components in `frontend/src/components/ui/` for consistent 
 ## 16. Accessibility
 
 Use semantic elements, associated labels, keyboard support, and visible focus styles for interactive UI.
+
+## 17. Responsive layouts
+
+Check changed screens at narrow and wide viewport sizes; keep primary actions reachable on mobile.
