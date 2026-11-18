@@ -64,6 +64,8 @@ export default function Signup() {
               type="email"
               id="signup-email"
               autoComplete="email"
+              autoCapitalize="none"
+              autoCorrect="off"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
