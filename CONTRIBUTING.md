@@ -85,3 +85,7 @@ Before opening a pull request, run the relevant frontend or backend checks for t
 ## 21. Pull request summary
 
 Describe the user-facing behavior, database impact, required environment changes, and verification performed.
+
+## 22. Deployment review
+
+Check the GitHub Actions deployment result and confirm production environment settings after merging.
