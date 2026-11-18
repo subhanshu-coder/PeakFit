@@ -21,7 +21,7 @@ export default function Navbar() {
     <>
       <header className={`peak-nav ${user ? 'workspace-header' : 'sticky top-0 z-40'}`}>
         <div className="mx-auto flex max-w-[1600px] items-center justify-between px-6 py-4 md:px-10">
-          <Link to={user ? '/dashboard' : '/'} data-cursor="home" className="flex items-center gap-2.5">
+          <Link to={user ? '/dashboard' : '/'} aria-label="PeakFit home" data-cursor="home" className="flex items-center gap-2.5">
             <span className="brand-symbol"><Dumbbell className="h-4 w-4" /></span>
             <span className="font-display text-[19px] font-bold tracking-[-0.06em]">PEAK<span className="text-volt">FIT</span><sup className="ml-0.5 text-[8px] text-muted">®</sup></span>
           </Link>
