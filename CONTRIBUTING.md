@@ -61,3 +61,7 @@ Avoid returning stack traces, secrets, or database internals in API error respon
 ## 15. Frontend components
 
 Prefer the shared UI components in `frontend/src/components/ui/` for consistent controls.
+
+## 16. Accessibility
+
+Use semantic elements, associated labels, keyboard support, and visible focus styles for interactive UI.
