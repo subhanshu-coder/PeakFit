@@ -171,6 +171,7 @@ export default function Progress() {
             <div className="flex flex-wrap items-center justify-between gap-4">
               <CardTitle>Strength Progress</CardTitle>
               <Select
+                label="Exercise for progress chart"
                 value={chartExercise}
                 onChange={(e) => setChartExercise(e.target.value)}
                 className="w-56"
