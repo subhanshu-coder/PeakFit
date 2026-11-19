@@ -18,7 +18,7 @@ function validEntries(entries) {
       if (set === null || typeof set !== 'object') return false
       const reps = Number(set.reps)
       const weight = Number(set.weight)
-      return Number.isInteger(reps) && reps > 0 && reps <= 100 && Number.isFinite(weight) && weight >= 0
+      return Number.isInteger(reps) && reps > 0 && reps <= 100 && Number.isFinite(weight) && weight >= 0 && weight <= 500
     })
   )
 }
