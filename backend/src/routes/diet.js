@@ -28,7 +28,7 @@ router.post('/calculate', asyncHandler(async (req, res) => {
   const activities = ['sedentary', 'light', 'moderate', 'active', 'athlete']
   const goals = ['cut', 'maintain', 'bulk']
   const values = [weightKg, heightCm, age].map(Number)
-  if (!['male', 'female'].includes(sex) || values.some((value) => !Number.isFinite(value) || value <= 0) || values[0] < 30 || values[0] > 350 || values[1] < 100 || values[1] > 250 || !activities.includes(activity) || !goals.includes(goal)) {
+  if (!['male', 'female'].includes(sex) || values.some((value) => !Number.isFinite(value) || value <= 0) || values[0] < 30 || values[0] > 350 || values[1] < 100 || values[1] > 250 || values[2] < 14 || values[2] > 100 || !activities.includes(activity) || !goals.includes(goal)) {
     return res.status(400).json({ error: 'Provide a valid sex, weight, height, age, activity and goal' })
   }
 
