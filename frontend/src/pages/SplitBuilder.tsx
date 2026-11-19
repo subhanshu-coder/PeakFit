@@ -23,6 +23,7 @@ export default function SplitBuilder() {
   const [muscles, setMuscles] = useState<string[]>([])
   const [draft, setDraft] = useState<Record<string, string[]>>({})
   const [savingDay, setSavingDay] = useState<string | null>(null)
+  const [saveError, setSaveError] = useState<string | null>(null)
 
   useEffect(() => {
     api.get('/plan').then((r) => {
@@ -47,8 +48,11 @@ export default function SplitBuilder() {
   async function saveDay(day: string) {
     if (!plan) return
     setSavingDay(day)
+    setSaveError(null)
     try {
       await api.patch(`/plan/${plan.id}/day/${day}`, { muscles: draft[day] })
+    } catch {
+      setSaveError('Could not save this day. Please try again.')
     } finally {
       setSavingDay(null)
     }
@@ -69,6 +73,7 @@ export default function SplitBuilder() {
       <p className="mt-3 max-w-xl text-muted">
         Toggle muscle groups per day. Exercises auto-fill from the library when you save.
       </p>
+      {saveError && <p role="alert" className="mt-4 text-sm text-red-400">{saveError}</p>}
 
       <div className="mt-10 flex flex-col gap-4">
         {plan.days.map((d) => (
