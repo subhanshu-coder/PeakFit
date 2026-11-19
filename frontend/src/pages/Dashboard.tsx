@@ -43,6 +43,7 @@ export default function Dashboard() {
   const [templates, setTemplates] = useState<Template[]>([])
   const [loading, setLoading] = useState(true)
   const [generating, setGenerating] = useState(false)
+  const [generateError, setGenerateError] = useState<string | null>(null)
   const [logs, setLogs] = useState<any[]>([])
   const [diet, setDiet] = useState<any>(null)
 
@@ -66,9 +67,12 @@ export default function Dashboard() {
 
   async function generate(splitType: string) {
     setGenerating(true)
+    setGenerateError(null)
     try {
       const { data } = await api.post('/plan/generate', { splitType })
       setPlan(data.plan)
+    } catch {
+      setGenerateError('Could not build your split. Please try again.')
     } finally {
       setGenerating(false)
     }
@@ -109,6 +113,7 @@ export default function Dashboard() {
             No program yet. Pick a template to auto-build your Monday–Saturday split — every
             muscle trained twice a week by default. You can customize any day afterward.
           </p>
+          {generateError && <p role="alert" className="mb-4 text-sm text-red-400">{generateError}</p>}
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
             {templates.map((t) => (
               <Card key={t.key} className="flex flex-col justify-between p-6">
