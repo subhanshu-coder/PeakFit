@@ -70,6 +70,7 @@ router.post('/generate', asyncHandler(async (req, res) => {
 router.patch('/:planId/day/:day', asyncHandler(async (req, res) => {
   const { planId, day } = req.params
   const { muscles, exerciseIds } = req.body ?? {}
+  if (!DAY_ORDER.includes(day)) return res.status(400).json({ error: 'Unknown plan day' })
   if (muscles !== undefined && (!Array.isArray(muscles) || muscles.some((muscle) => typeof muscle !== 'string'))) {
     return res.status(400).json({ error: 'muscles must be an array of muscle names' })
   }
