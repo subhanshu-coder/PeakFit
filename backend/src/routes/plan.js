@@ -71,6 +71,9 @@ router.patch('/:planId/day/:day', asyncHandler(async (req, res) => {
   const { planId, day } = req.params
   const { muscles, exerciseIds } = req.body ?? {}
   if (!DAY_ORDER.includes(day)) return res.status(400).json({ error: 'Unknown plan day' })
+  if (!/^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(planId)) {
+    return res.status(400).json({ error: 'Invalid plan ID' })
+  }
   if (muscles !== undefined && (!Array.isArray(muscles) || new Set(muscles).size !== muscles.length || muscles.some((muscle) => typeof muscle !== 'string' || !EXERCISES.some((exercise) => exercise.muscle === muscle)))) {
     return res.status(400).json({ error: 'muscles must be an array of muscle names' })
   }
