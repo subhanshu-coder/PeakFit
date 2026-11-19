@@ -46,6 +46,8 @@ router.post('/login', asyncHandler(async (req, res) => {
     return res.status(400).json({ error: 'email and password are required' })
   }
 
+  if (email.trim().length > 254 || password.length > 128) return res.status(400).json({ error: 'Email or password is too long' })
+
   const { data, error } = await createPublicClient().auth.signInWithPassword({
     email: email.trim(),
     password,
