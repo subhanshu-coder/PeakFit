@@ -74,7 +74,7 @@ router.patch('/:planId/day/:day', asyncHandler(async (req, res) => {
   if (!/^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(planId)) {
     return res.status(400).json({ error: 'Invalid plan ID' })
   }
-  if (muscles !== undefined && (!Array.isArray(muscles) || new Set(muscles).size !== muscles.length || muscles.some((muscle) => typeof muscle !== 'string' || !EXERCISES.some((exercise) => exercise.muscle === muscle)))) {
+  if (muscles !== undefined && (!Array.isArray(muscles) || muscles.length > 6 || new Set(muscles).size !== muscles.length || muscles.some((muscle) => typeof muscle !== 'string' || !EXERCISES.some((exercise) => exercise.muscle === muscle)))) {
     return res.status(400).json({ error: 'muscles must be an array of muscle names' })
   }
   if (exerciseIds !== undefined && (!Array.isArray(exerciseIds) || exerciseIds.some((id) => !Number.isInteger(id) || !EXERCISES.some((exercise) => exercise.id === id)))) {
