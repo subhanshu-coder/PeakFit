@@ -77,7 +77,7 @@ router.patch('/:planId/day/:day', asyncHandler(async (req, res) => {
   if (muscles !== undefined && (!Array.isArray(muscles) || muscles.length > 6 || new Set(muscles).size !== muscles.length || muscles.some((muscle) => typeof muscle !== 'string' || !EXERCISES.some((exercise) => exercise.muscle === muscle)))) {
     return res.status(400).json({ error: 'muscles must be an array of muscle names' })
   }
-  if (exerciseIds !== undefined && (!Array.isArray(exerciseIds) || exerciseIds.some((id) => !Number.isInteger(id) || !EXERCISES.some((exercise) => exercise.id === id)))) {
+  if (exerciseIds !== undefined && (!Array.isArray(exerciseIds) || new Set(exerciseIds).size !== exerciseIds.length || exerciseIds.some((id) => !Number.isInteger(id) || !EXERCISES.some((exercise) => exercise.id === id)))) {
     return res.status(400).json({ error: 'exerciseIds must be an array of exercise IDs' })
   }
 
