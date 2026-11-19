@@ -12,6 +12,7 @@ function fromRow(row) {
 function validEntries(entries) {
   return entries.length > 0 && entries.length <= 30 && entries.every((entry) =>
     entry !== null && typeof entry === 'object' &&
+    (entry.exerciseId === undefined || (Number.isInteger(entry.exerciseId) && entry.exerciseId >= 0)) &&
     typeof entry.exerciseName === 'string' && entry.exerciseName.trim().length > 0 && entry.exerciseName.trim().length <= 80 &&
     Array.isArray(entry.sets) && entry.sets.length > 0 && entry.sets.length <= 20 &&
     entry.sets.every((set) => {
