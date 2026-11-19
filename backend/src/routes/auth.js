@@ -18,6 +18,7 @@ router.post('/register', asyncHandler(async (req, res) => {
   if (typeof name !== 'string' || !name.trim() || typeof email !== 'string' || !email.trim() || typeof password !== 'string') {
     return res.status(400).json({ error: 'name, email and password are required' })
   }
+  if (name.trim().length > 80) return res.status(400).json({ error: 'Name must be 80 characters or fewer' })
   if (password.length < 8) {
     return res.status(400).json({ error: 'Password must be at least 8 characters' })
   }
