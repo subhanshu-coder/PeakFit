@@ -27,7 +27,7 @@ function validEntries(entries) {
 
 router.post('/', asyncHandler(async (req, res) => {
   const { day, entries } = req.body ?? {}
-  if (typeof day !== 'string' || !day.trim() || day.length > 40 || !Array.isArray(entries) || !validEntries(entries)) {
+  if (typeof day !== 'string' || !LOG_DAYS.includes(day.trim()) || !Array.isArray(entries) || !validEntries(entries)) {
     return res.status(400).json({ error: 'Provide a day and valid exercise entries with sets, reps and weight' })
   }
 
