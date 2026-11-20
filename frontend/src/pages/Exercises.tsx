@@ -21,16 +21,20 @@ export default function Exercises() {
   const [exercises, setExercises] = useState<ExerciseRef[]>([])
   const [query, setQuery] = useState('')
   const [loadError, setLoadError] = useState<string | null>(null)
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     api.get('/exercises/muscles').then((r) => setMuscles(r.data.muscles)).catch(() => setLoadError('Could not load muscle groups. Please refresh the page.'))
   }, [])
 
   useEffect(() => {
+    setLoading(true)
+    setLoadError(null)
     api
       .get('/exercises', { params: muscle ? { muscle } : {} })
       .then((r) => setExercises(r.data.exercises))
       .catch(() => setLoadError('Could not load movements. Please try again.'))
+      .finally(() => setLoading(false))
   }, [muscle])
 
   return (
@@ -57,6 +61,7 @@ export default function Exercises() {
       <span role="status" aria-live="polite" className="exercise-count">{exercises.filter((ex) => `${ex.name} ${ex.muscle} ${ex.equipment}`.toLowerCase().includes(query.toLowerCase())).length} MOVEMENTS</span>
       </div>
 
+      {loading && <p role="status" className="mt-6 text-sm text-muted">Loading movements…</p>}
       <div className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {exercises.filter((ex) => `${ex.name} ${ex.muscle} ${ex.equipment}`.toLowerCase().includes(query.toLowerCase())).map((ex, i) => (
           <motion.div
