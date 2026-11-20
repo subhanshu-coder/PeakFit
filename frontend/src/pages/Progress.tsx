@@ -37,10 +37,20 @@ export default function Progress() {
   const [chartData, setChartData] = useState<{ date: string; maxWeight: number }[]>([])
   const [saving, setSaving] = useState(false)
   const [saveError, setSaveError] = useState<string | null>(null)
+  const [logsLoading, setLogsLoading] = useState(true)
+  const [logsError, setLogsError] = useState<string | null>(null)
 
   async function loadLogs() {
-    const { data } = await api.get('/logs')
-    setLogs(data.logs)
+    setLogsLoading(true)
+    setLogsError(null)
+    try {
+      const { data } = await api.get('/logs')
+      setLogs(data.logs)
+    } catch {
+      setLogsError('Could not load workout history. Please try again.')
+    } finally {
+      setLogsLoading(false)
+    }
   }
 
   useEffect(() => {
@@ -233,6 +243,8 @@ export default function Progress() {
 
           <div>
             <h2 className="font-display text-2xl tracking-wide">Recent Logs</h2>
+            {logsLoading && <p role="status" className="mt-3 text-sm text-muted">Loading workout history…</p>}
+            {logsError && <p role="alert" className="mt-3 text-sm text-red-400">{logsError}</p>}
             <div className="mt-4 flex flex-col gap-3">
               {logs
                 .slice()
