@@ -3,6 +3,7 @@ import { useAuthStore } from '@/store/auth'
 
 export const api = axios.create({
   baseURL: import.meta.env.VITE_API_URL || (import.meta.env.PROD ? '/api' : 'http://localhost:5000/api'),
+  timeout: 15000,
 })
 
 let refreshInFlight: Promise<{ token: string; refreshToken: string; user: { id: string; name: string; email: string } }> | null = null
