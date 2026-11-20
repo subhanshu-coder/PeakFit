@@ -88,7 +88,7 @@ export default function Progress() {
     try {
       await api.post('/logs', {
         day,
-        entries: [{ exerciseId: 0, exerciseName, sets }],
+        entries: [{ exerciseId: 0, exerciseName: exerciseName.trim(), sets }],
       })
     } catch {
       setSaveError('Could not save this workout. Please try again.')
