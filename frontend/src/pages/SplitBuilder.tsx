@@ -105,6 +105,7 @@ export default function SplitBuilder() {
                     key={m}
                     type="button"
                     aria-pressed={Boolean(active)}
+                    disabled={savingDay === d.day}
                     data-cursor="toggle"
                     onClick={() => toggle(d.day, m)}
                     className="transition-transform active:scale-95"
