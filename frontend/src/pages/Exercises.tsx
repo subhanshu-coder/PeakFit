@@ -86,6 +86,9 @@ export default function Exercises() {
           </motion.div>
         ))}
       </div>
+      {!loading && !loadError && query.trim() && exercises.length > 0 && !exercises.some((ex) => [ex.name, ex.muscle, ex.equipment].join(' ').toLowerCase().includes(query.toLowerCase())) && (
+        <p role="status" className="mt-8 text-sm text-muted">No movements match your search. Try another term.</p>
+      )}
     </div>
   )
 }
