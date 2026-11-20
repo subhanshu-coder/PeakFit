@@ -99,7 +99,7 @@ export default function Progress() {
     setExerciseName('')
     setSets([{ reps: '', weight: '' }])
     loadLogs()
-    if (exerciseName === chartExercise) {
+    if (exerciseName.trim().toLowerCase() === chartExercise.trim().toLowerCase()) {
       api.get(`/logs/progress/${encodeURIComponent(chartExercise)}`).then((r) => {
         setChartData(
           r.data.points.map((p: any) => ({
