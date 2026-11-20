@@ -27,7 +27,7 @@ router.post('/register', asyncHandler(async (req, res) => {
   }
 
   const { data, error } = await createPublicClient().auth.signUp({
-    email: email.trim(),
+    email: email.trim().toLowerCase(),
     password,
     options: { data: { full_name: name.trim() } },
   })
