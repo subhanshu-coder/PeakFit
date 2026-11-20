@@ -20,6 +20,8 @@ interface Plan {
 export default function SplitBuilder() {
   const navigate = useNavigate()
   const [plan, setPlan] = useState<Plan | null>(null)
+  const [loadingPlan, setLoadingPlan] = useState(true)
+  const [loadError, setLoadError] = useState<string | null>(null)
   const [muscles, setMuscles] = useState<string[]>([])
   const [draft, setDraft] = useState<Record<string, string[]>>({})
   const [savingDay, setSavingDay] = useState<string | null>(null)
@@ -31,7 +33,9 @@ export default function SplitBuilder() {
       const initial: Record<string, string[]> = {}
       r.data.plan.days.forEach((d: PlanDay) => (initial[d.day] = d.muscles))
       setDraft(initial)
-    })
+    }).catch((error) => {
+      if (error?.response?.status !== 404) setLoadError('Could not load your training plan. Please try again.')
+    }).finally(() => setLoadingPlan(false))
     api.get('/exercises/muscles').then((r) => setMuscles(r.data.muscles))
   }, [])
 
@@ -61,7 +65,7 @@ export default function SplitBuilder() {
   if (!plan) {
     return (
       <div className="mx-auto max-w-3xl px-6 py-16 text-muted">
-        No plan found. Generate one from the dashboard first.
+{loadingPlan ? <p role="status">Loading your training plan…</p> : loadError ? <p role="alert" className="text-red-400">{loadError}</p> : <>No plan found. Generate one from the dashboard first.</>}
       </div>
     )
   }
