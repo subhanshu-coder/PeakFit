@@ -35,6 +35,8 @@ export default function Progress() {
   const [logs, setLogs] = useState<Log[]>([])
   const [chartExercise, setChartExercise] = useState('')
   const [chartData, setChartData] = useState<{ date: string; maxWeight: number }[]>([])
+  const [saving, setSaving] = useState(false)
+  const [saveError, setSaveError] = useState<string | null>(null)
 
   async function loadLogs() {
     const { data } = await api.get('/logs')
@@ -64,10 +66,19 @@ export default function Progress() {
   async function onSubmit(e: FormEvent) {
     e.preventDefault()
     if (!exerciseName.trim()) return
-    await api.post('/logs', {
-      day,
-      entries: [{ exerciseId: 0, exerciseName, sets }],
-    })
+    setSaveError(null)
+    setSaving(true)
+    try {
+      await api.post('/logs', {
+        day,
+        entries: [{ exerciseId: 0, exerciseName, sets }],
+      })
+    } catch {
+      setSaveError('Could not save this workout. Please try again.')
+      return
+    } finally {
+      setSaving(false)
+    }
     setExerciseName('')
     setSets([{ reps: '', weight: '' }])
     loadLogs()
@@ -98,6 +109,7 @@ export default function Progress() {
       <div className="mt-10 grid grid-cols-1 gap-8 lg:grid-cols-[380px_1fr]">
         <Card className="h-fit p-6">
           <h2 className="font-display text-xl tracking-wide">Log a Set</h2>
+          {saveError && <p role="alert" className="mb-3 text-sm text-red-400">{saveError}</p>}
           <form onSubmit={onSubmit} className="mt-4 flex flex-col gap-4">
             <Select label="Day" value={day} onChange={(e) => setDay(e.target.value)}>
               {DAYS.map((d) => (
@@ -163,8 +175,8 @@ export default function Progress() {
               </Button>
             </div>
 
-            <Button type="submit" className="mt-2 w-full">
-              Save Log
+            <Button type="submit" className="mt-2 w-full" disabled={saving} aria-busy={saving}>
+              {saving ? 'Saving…' : 'Save Log'}
             </Button>
           </form>
         </Card>
