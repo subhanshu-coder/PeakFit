@@ -43,6 +43,7 @@ export default function Dashboard() {
   const [templates, setTemplates] = useState<Template[]>([])
   const [loading, setLoading] = useState(true)
   const [planLoadError, setPlanLoadError] = useState<string | null>(null)
+  const [templatesError, setTemplatesError] = useState<string | null>(null)
   const [generating, setGenerating] = useState(false)
   const [generateError, setGenerateError] = useState<string | null>(null)
   const [logs, setLogs] = useState<any[]>([])
@@ -61,7 +62,7 @@ export default function Dashboard() {
   }
 
   useEffect(() => {
-    api.get('/plan/templates').then((r) => setTemplates(r.data.templates))
+    api.get('/plan/templates').then((r) => setTemplates(r.data.templates)).catch(() => setTemplatesError('Could not load workout templates. Please refresh the page.'))
     loadPlan()
     api.get('/logs').then((r) => setLogs(r.data.logs ?? [])).catch(() => setLogs([]))
     api.get('/diet/latest').then((r) => setDiet(r.data.diet)).catch(() => setDiet(null))
@@ -112,6 +113,7 @@ export default function Dashboard() {
       ) : !plan ? (
         <div className="mt-8">
           {planLoadError && <p role="alert" className="mb-4 text-sm text-red-400">{planLoadError}</p>}
+          {templatesError && <p role="alert" className="mb-4 text-sm text-red-400">{templatesError}</p>}
           <p className="mb-6 max-w-xl text-muted">
             No program yet. Pick a template to auto-build your Monday–Saturday split — every
             muscle trained twice a week by default. You can customize any day afterward.
