@@ -3,6 +3,7 @@ import { asyncHandler } from '../middleware/asyncHandler.js'
 import { requireAuth } from '../middleware/auth.js'
 
 const router = Router()
+const LOG_DAYS = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
 router.use(requireAuth)
 
 function fromRow(row) {
