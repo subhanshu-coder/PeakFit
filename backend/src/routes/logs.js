@@ -15,7 +15,7 @@ function validEntries(entries) {
     entry !== null && typeof entry === 'object' &&
     (entry.exerciseId === undefined || (Number.isInteger(entry.exerciseId) && entry.exerciseId >= 0)) &&
     typeof entry.exerciseName === 'string' && entry.exerciseName.trim().length > 0 && entry.exerciseName.trim().length <= 80 &&
-    Array.isArray(entry.sets) && entry.sets.length > 0 && entry.sets.length <= 20 &&
+    Array.isArray(entry.sets) && entry.sets.length > 0 && entry.sets.length <= 12 &&
     entry.sets.every((set) => {
       if (set === null || typeof set !== 'object') return false
       const reps = Number(set.reps)
