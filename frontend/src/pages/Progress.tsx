@@ -39,6 +39,8 @@ export default function Progress() {
   const [saveError, setSaveError] = useState<string | null>(null)
   const [logsLoading, setLogsLoading] = useState(true)
   const [logsError, setLogsError] = useState<string | null>(null)
+  const [chartLoading, setChartLoading] = useState(false)
+  const [chartError, setChartError] = useState<string | null>(null)
 
   async function loadLogs() {
     setLogsLoading(true)
@@ -58,7 +60,9 @@ export default function Progress() {
   }, [])
 
   useEffect(() => {
-    if (!chartExercise) return
+    if (!chartExercise) { setChartData([]); return }
+    setChartLoading(true)
+    setChartError(null)
     api.get(`/logs/progress/${encodeURIComponent(chartExercise)}`).then((r) => {
       setChartData(
         r.data.points.map((p: any) => ({
@@ -66,7 +70,10 @@ export default function Progress() {
           maxWeight: p.maxWeight,
         }))
       )
-    })
+    }).catch(() => {
+      setChartData([])
+      setChartError('Could not load strength history. Please try again.')
+    }).finally(() => setChartLoading(false))
   }, [chartExercise])
 
   function updateSet(i: number, key: keyof SetEntry, value: string) {
@@ -210,6 +217,8 @@ export default function Progress() {
               </Select>
             </div>
             <div className="mt-6 h-72">
+              {chartLoading && <p role="status" className="text-sm text-muted">Loading strength history…</p>}
+              {chartError && <p role="alert" className="text-sm text-red-400">{chartError}</p>}
               {chartData.length > 0 ? (
                 <ResponsiveContainer width="100%" height="100%">
                   <LineChart data={chartData} accessibilityLayer>
