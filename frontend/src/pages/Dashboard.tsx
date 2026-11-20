@@ -42,6 +42,7 @@ export default function Dashboard() {
   const [plan, setPlan] = useState<Plan | null>(null)
   const [templates, setTemplates] = useState<Template[]>([])
   const [loading, setLoading] = useState(true)
+  const [planLoadError, setPlanLoadError] = useState<string | null>(null)
   const [generating, setGenerating] = useState(false)
   const [generateError, setGenerateError] = useState<string | null>(null)
   const [logs, setLogs] = useState<any[]>([])
@@ -51,8 +52,9 @@ export default function Dashboard() {
     try {
       const { data } = await api.get('/plan')
       setPlan(data.plan)
-    } catch {
+    } catch (error: any) {
       setPlan(null)
+      if (error?.response?.status !== 404) setPlanLoadError('Could not load your training plan. Please refresh the page.')
     } finally {
       setLoading(false)
     }
@@ -109,6 +111,7 @@ export default function Dashboard() {
         <p role="status" aria-live="polite" className="mt-10 text-muted">Loading your program…</p>
       ) : !plan ? (
         <div className="mt-8">
+          {planLoadError && <p role="alert" className="mb-4 text-sm text-red-400">{planLoadError}</p>}
           <p className="mb-6 max-w-xl text-muted">
             No program yet. Pick a template to auto-build your Monday–Saturday split — every
             muscle trained twice a week by default. You can customize any day afterward.
