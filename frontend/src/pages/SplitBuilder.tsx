@@ -36,7 +36,7 @@ export default function SplitBuilder() {
     }).catch((error) => {
       if (error?.response?.status !== 404) setLoadError('Could not load your training plan. Please try again.')
     }).finally(() => setLoadingPlan(false))
-    api.get('/exercises/muscles').then((r) => setMuscles(r.data.muscles))
+    api.get('/exercises/muscles').then((r) => setMuscles(r.data.muscles)).catch(() => setLoadError('Could not load muscle groups. Please refresh the page.'))
   }, [])
 
   function toggle(day: string, muscle: string) {
