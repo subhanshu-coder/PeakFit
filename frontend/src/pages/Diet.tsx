@@ -44,6 +44,7 @@ export default function Diet() {
   async function onSubmit(e: FormEvent) {
     e.preventDefault()
     setError(null)
+    setResult(null)
     setLoading(true)
     try {
       const { data } = await api.post('/diet/calculate', form)
