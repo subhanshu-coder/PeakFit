@@ -71,7 +71,7 @@ export default function Login() {
               autoComplete="current-password"
               maxLength={128}
               value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={(e) => { setError(null); setPassword(e.target.value) }}
               required
             />
             {error && <p role="alert" className="text-sm text-red-400">{error}</p>}
