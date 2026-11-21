@@ -228,7 +228,7 @@ export default function Progress() {
                   <LineChart data={chartData} accessibilityLayer>
                     <CartesianGrid stroke="#2A2A33" strokeDasharray="3 3" />
                     <XAxis dataKey="date" stroke="#8B8B96" fontSize={11} />
-                    <YAxis stroke="#8B8B96" fontSize={11} />
+                    <YAxis stroke="#8B8B96" fontSize={11} unit=" kg" />
                     <Tooltip
                       contentStyle={{
                         background: '#131318',
