@@ -248,7 +248,7 @@ export default function Progress() {
                 </ResponsiveContainer>
               ) : (
                 <div className="flex h-full items-center justify-center text-sm text-muted">
-                  Log a few sessions of an exercise to see its trend here.
+                  Select an exercise and log a few sessions to see its trend here.
                 </div>
               )}
             </div>
