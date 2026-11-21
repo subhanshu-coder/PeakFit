@@ -16,7 +16,7 @@ export default function CustomCursor() {
   const [isTouch, setIsTouch] = useState(false)
 
   useEffect(() => {
-    const touch = window.matchMedia('(hover: none)').matches
+    const touch = window.matchMedia('(hover: none)').matches || window.matchMedia('(prefers-reduced-motion: reduce)').matches
     setIsTouch(touch)
     if (touch) return
 
