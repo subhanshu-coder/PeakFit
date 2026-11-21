@@ -96,6 +96,7 @@ export default function Diet() {
               type="number"
               min={14}
               max={100}
+              step={1}
               value={form.age}
               onChange={(e) => update('age', e.target.value)}
               required
