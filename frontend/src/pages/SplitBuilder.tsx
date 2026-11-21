@@ -40,6 +40,7 @@ export default function SplitBuilder() {
   }, [])
 
   function toggle(day: string, muscle: string) {
+    setSaveError(null)
     setDraft((prev) => {
       const current = prev[day] ?? []
       const next = current.includes(muscle)
