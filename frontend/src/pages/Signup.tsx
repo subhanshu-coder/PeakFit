@@ -58,7 +58,7 @@ export default function Signup() {
             <span className="h-px flex-1 bg-line" />
           </div>
           <form onSubmit={onSubmit} className="flex flex-col gap-4">
-            <Input label="Name" id="signup-name" maxLength={80} autoComplete="name" value={name} onChange={(e) => setName(e.target.value)} required />
+            <Input label="Name" id="signup-name" maxLength={80} autoComplete="name" value={name} onChange={(e) => { setError(null); setName(e.target.value) }} required />
             <Input
               label="Email"
               type="email"
