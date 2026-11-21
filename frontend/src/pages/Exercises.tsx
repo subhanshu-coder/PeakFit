@@ -58,12 +58,12 @@ export default function Exercises() {
         </Select>
       </div>
       {loadError && <p role="alert" className="mt-4 text-sm text-red-400">{loadError}</p>}
-      <span role="status" aria-live="polite" className="exercise-count">{exercises.filter((ex) => `${ex.name} ${ex.muscle} ${ex.equipment}`.toLowerCase().includes(query.toLowerCase())).length} MOVEMENTS</span>
+      <span role="status" aria-live="polite" className="exercise-count">{exercises.filter((ex) => `${ex.name} ${ex.muscle} ${ex.equipment}`.toLowerCase().includes(query.trim().toLowerCase())).length} MOVEMENTS</span>
       </div>
 
       {loading && <p role="status" className="mt-6 text-sm text-muted">Loading movements…</p>}
       <div className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {exercises.filter((ex) => `${ex.name} ${ex.muscle} ${ex.equipment}`.toLowerCase().includes(query.toLowerCase())).map((ex, i) => (
+        {exercises.filter((ex) => `${ex.name} ${ex.muscle} ${ex.equipment}`.toLowerCase().includes(query.trim().toLowerCase())).map((ex, i) => (
           <motion.div
             key={ex.id}
             initial={{ opacity: 0, y: 12 }}
@@ -86,7 +86,7 @@ export default function Exercises() {
           </motion.div>
         ))}
       </div>
-      {!loading && !loadError && query.trim() && exercises.length > 0 && !exercises.some((ex) => [ex.name, ex.muscle, ex.equipment].join(' ').toLowerCase().includes(query.toLowerCase())) && (
+      {!loading && !loadError && query.trim() && exercises.length > 0 && !exercises.some((ex) => [ex.name, ex.muscle, ex.equipment].join(' ').toLowerCase().includes(query.trim().toLowerCase())) && (
         <p role="status" className="mt-8 text-sm text-muted">No movements match your search. Try another term.</p>
       )}
     </div>
