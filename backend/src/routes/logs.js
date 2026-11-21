@@ -52,7 +52,7 @@ router.get('/', asyncHandler(async (req, res) => {
 
 router.get('/progress/:exerciseName', asyncHandler(async (req, res) => {
   const exerciseName = req.params.exerciseName.trim()
-  if (!exerciseName || exerciseName.length > 100) return res.status(400).json({ error: 'Invalid exercise name' })
+  if (!exerciseName || exerciseName.length > 80) return res.status(400).json({ error: 'Invalid exercise name' })
 
   const { data, error } = await req.supabase
     .from('workout_logs')
