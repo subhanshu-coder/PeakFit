@@ -66,7 +66,7 @@ export default function SplitBuilder() {
   if (!plan) {
     return (
       <div className="mx-auto max-w-3xl px-6 py-16 text-muted">
-{loadingPlan ? <p role="status">Loading your training plan…</p> : loadError ? <p role="alert" className="text-red-400">{loadError}</p> : <>No plan found. Generate one from the dashboard first.</>}
+{loadingPlan ? <p role="status">Loading your training plan…</p> : loadError ? <p role="alert" className="text-red-400">{loadError}</p> : <>No plan found. Generate one from the dashboard first. <button type="button" className="ml-2 text-volt underline" onClick={() => navigate('/dashboard')}>Go to dashboard</button></>}
       </div>
     )
   }
