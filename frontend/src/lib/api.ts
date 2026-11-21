@@ -30,7 +30,7 @@ api.interceptors.response.use(
     original._retry = true
     try {
       refreshInFlight ??= axios
-        .post(`${api.defaults.baseURL}/auth/refresh`, { refreshToken: auth.refreshToken })
+        .post(`${api.defaults.baseURL}/auth/refresh`, { refreshToken: auth.refreshToken }, { timeout: 15000 })
         .then(({ data }) => data)
       const session = await refreshInFlight
       useAuthStore.getState().setSession(session.token, session.user, session.refreshToken)
