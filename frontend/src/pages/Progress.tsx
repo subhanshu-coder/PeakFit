@@ -60,7 +60,7 @@ export default function Progress() {
   }, [])
 
   useEffect(() => {
-    if (!chartExercise) { setChartData([]); return }
+    if (!chartExercise) { setChartData([]); setChartError(null); return }
     setChartLoading(true)
     setChartError(null)
     api.get(`/logs/progress/${encodeURIComponent(chartExercise)}`).then((r) => {
