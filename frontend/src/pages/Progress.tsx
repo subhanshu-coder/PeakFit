@@ -60,10 +60,12 @@ export default function Progress() {
   }, [])
 
   useEffect(() => {
+    let cancelled = false
     if (!chartExercise) { setChartData([]); setChartError(null); return }
     setChartLoading(true)
     setChartError(null)
     api.get(`/logs/progress/${encodeURIComponent(chartExercise)}`).then((r) => {
+      if (cancelled) return
       setChartData(
         r.data.points.map((p: any) => ({
           date: new Date(p.date).toLocaleDateString(undefined, { month: 'short', day: 'numeric' }),
@@ -71,9 +73,11 @@ export default function Progress() {
         }))
       )
     }).catch(() => {
+      if (cancelled) return
       setChartData([])
       setChartError('Could not load strength history. Please try again.')
-    }).finally(() => setChartLoading(false))
+    }).finally(() => { if (!cancelled) setChartLoading(false) })
+    return () => { cancelled = true }
   }, [chartExercise])
 
   function updateSet(i: number, key: keyof SetEntry, value: string) {
