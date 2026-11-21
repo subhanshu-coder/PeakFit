@@ -33,7 +33,11 @@ function loadInitial(): { token: string | null; refreshToken: string | null; use
 export const useAuthStore = create<AuthState>((set) => ({
   ...loadInitial(),
   setSession: (token, user, refreshToken = null) => {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify({ token, refreshToken, user }))
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify({ token, refreshToken, user }))
+    } catch {
+      // Keep the current session in memory when browser storage is blocked.
+    }
     set({ token, refreshToken, user })
   },
   logout: () => {
