@@ -41,7 +41,11 @@ export const useAuthStore = create<AuthState>((set) => ({
     set({ token, refreshToken, user })
   },
   logout: () => {
-    localStorage.removeItem(STORAGE_KEY)
+    try {
+      localStorage.removeItem(STORAGE_KEY)
+    } catch {
+      // Clear the in-memory session even when browser storage is blocked.
+    }
     set({ token: null, refreshToken: null, user: null })
   },
 }))
