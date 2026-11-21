@@ -43,7 +43,7 @@ export default function App() {
       <CustomCursor />
       <Navbar />
       <a href="#main-content" className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:bg-volt focus:px-4 focus:py-3 focus:text-ink">Skip to main content</a>
-      <main id="main-content" className={user ? 'app-main' : undefined}>
+      <main id="main-content" tabIndex={-1} className={user ? 'app-main' : undefined}>
       <Suspense fallback={<div role="status" aria-live="polite" className="route-loading"><span className="status-dot" /> PREPARING YOUR TRAINING SPACE</div>}>
       <Routes>
         <Route path="/" element={isOAuthCallback ? <AuthCallback /> : user ? <Navigate to="/dashboard" replace /> : <Landing />} />
