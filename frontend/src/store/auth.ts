@@ -20,7 +20,11 @@ function loadInitial(): { token: string | null; refreshToken: string | null; use
   try {
     const raw = localStorage.getItem(STORAGE_KEY)
     if (!raw) return { token: null, refreshToken: null, user: null }
-    return { refreshToken: null, ...JSON.parse(raw) }
+    const saved = JSON.parse(raw)
+    if (!saved || typeof saved !== 'object' || typeof saved.token !== 'string' || !saved.user || typeof saved.user.id !== 'string' || typeof saved.user.email !== 'string' || typeof saved.user.name !== 'string') {
+      return { token: null, refreshToken: null, user: null }
+    }
+    return { token: saved.token, refreshToken: typeof saved.refreshToken === 'string' ? saved.refreshToken : null, user: saved.user }
   } catch {
     return { token: null, refreshToken: null, user: null }
   }
